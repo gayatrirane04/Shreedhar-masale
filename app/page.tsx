@@ -2,7 +2,6 @@
 import Navbar from "./components/Navbar";
 import ProductCard from "./components/ProductCard";
 import ReviewSlider from "./components/ReviewSlider";
-import AboutSection from "./components/AboutSection";
 import { useState, useEffect } from "react";
 
 export default function Home() {
