@@ -6,11 +6,24 @@ import { useState, useEffect } from "react";
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [aboutSlide, setAboutSlide] = useState(0);
+  const aboutImages = [
+    'about1.jpg', 'about2.jpg', 'about3.jpg', 'about4.jpg',
+    'about5.jpg', 'about6.jpg', 'about7.jpg', 'about8.jpg',
+    'about9.jpg', 'about10.jpg', 'about11.jpg', 'about12.jpg'
+  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % 2);
     }, 5000);
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setAboutSlide((prev) => (prev + 1) % aboutImages.length);
+    }, 2000);
     return () => clearInterval(timer);
   }, []);
 
@@ -66,7 +79,7 @@ export default function Home() {
 
       <section id="products" className="bg-gradient-to-b from-amber-50 via-orange-50 to-white py-8 sm:py-12 px-4 sm:px-6">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent mb-6 sm:mb-8">Our Premium Masale Collection</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
           <ProductCard 
             title="Malvani Bhajka Masala" 
             price="₹266"
@@ -138,8 +151,16 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent mb-8 text-center">Our Journey</h2>
           
-          <div className="backdrop-blur-md bg-white/20 border border-white/30 rounded-3xl shadow-2xl p-6 sm:p-8">
-            <div className="text-center mb-6">
+          <div className="relative backdrop-blur-md bg-gradient-to-br from-orange-100/60 via-white/40 to-amber-100/60 border-2 border-orange-300/50 rounded-3xl shadow-[0_8px_32px_rgba(251,146,60,0.25)] p-6 sm:p-8 overflow-hidden">
+            {aboutImages.map((img, index) => (
+              <div key={index} className={`absolute inset-0 transition-opacity duration-1000 z-0 ${
+                aboutSlide === index ? "opacity-100" : "opacity-0"
+              }`}>
+                <img src={`/${img}`} alt="Journey" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-white/50"></div>
+              </div>
+            ))}
+            <div className="text-center mb-6 relative z-20">
               <button 
                 onClick={() => {
                   const content = document.getElementById('about-content');
@@ -161,7 +182,7 @@ export default function Home() {
               </button>
             </div>
             
-            <div id="about-content" className="marathi text-gray-800 space-y-4 leading-relaxed text-base sm:text-lg">
+            <div id="about-content" className="marathi text-gray-900 space-y-4 leading-relaxed text-base sm:text-lg relative z-10 font-semibold" style={{fontFamily: 'var(--font-devanagari)'}}>
               <div className="marathi-text max-h-96 overflow-y-auto pr-2">
                 <p>तळकोकणातील एका छोट्याशा गावात…</p>
                 <p>मातीच्या घरातल्या चुलीवर शिजणाऱ्या स्वयंपाकाचा दरवळ संपूर्ण अंगणात पसरायचा.</p>
