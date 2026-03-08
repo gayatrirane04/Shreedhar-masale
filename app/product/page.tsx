@@ -69,7 +69,7 @@ export default function ProductDetail() {
 
   const handleAddToCart = () => {
     addToCart({
-      id: `product-${selectedVariant.id}`,
+      id: `${product.title}-${selectedVariant.id}`,
       name: product.title,
       variant: selectedVariant.label,
       price: selectedVariant.price,

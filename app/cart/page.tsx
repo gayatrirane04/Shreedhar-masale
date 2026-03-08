@@ -126,9 +126,9 @@ export default function Cart() {
                     <p className="text-orange-600 font-bold">₹{item.price}</p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <button onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))} className="bg-gray-200 px-3 py-1 rounded">-</button>
-                    <span className="font-semibold">{item.quantity}</span>
-                    <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="bg-gray-200 px-3 py-1 rounded">+</button>
+                    <button onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))} className="bg-gray-200 text-black px-3 py-1 rounded font-bold">-</button>
+                    <span className="font-semibold text-gray-800">{item.quantity}</span>
+                    <button onClick={() => updateQuantity(item.id, item.quantity + 1)} className="bg-gray-200 text-black px-3 py-1 rounded font-bold">+</button>
                   </div>
                   <button onClick={() => removeFromCart(item.id)} className="text-red-600 font-semibold">Remove</button>
                 </div>
