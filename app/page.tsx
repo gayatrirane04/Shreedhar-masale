@@ -23,7 +23,7 @@ export default function Home() {
   useEffect(() => {
     const timer = setInterval(() => {
       setAboutSlide((prev) => (prev + 1) % aboutImages.length);
-    }, 2000);
+    }, 5000);
     return () => clearInterval(timer);
   }, []);
 
@@ -128,14 +128,14 @@ export default function Home() {
             image="vade.jpg"
             description="Pure urad dal flour for soft, fluffy vadas - traditionally stone-milled."
           />
-          <ProductCard 
+          {/* <ProductCard 
             title="Gavathi Halad" 
             price="₹137"
             originalPrice="₹182"
             discount="25%"
             image="halad.jpg"
             description="Organic farm-fresh turmeric with high curcumin, naturally sun-dried."
-          />
+          /> */}
           <ProductCard 
             title="Kohala Sandage" 
             price="₹396"
@@ -182,7 +182,7 @@ export default function Home() {
               </button>
             </div>
             
-            <div id="about-content" className="marathi text-gray-900 space-y-4 leading-relaxed text-base sm:text-lg relative z-10 font-semibold" style={{fontFamily: 'var(--font-devanagari)'}}>
+            <div id="about-content" className="marathi text-gray-900 space-y-4 leading-relaxed text-xl sm:text-2xl relative z-10 font-semibold" style={{fontFamily: 'var(--font-tiro)'}}>
               <div className="marathi-text max-h-96 overflow-y-auto pr-2">
                 <p>तळकोकणातील एका छोट्याशा गावात…</p>
                 <p>मातीच्या घरातल्या चुलीवर शिजणाऱ्या स्वयंपाकाचा दरवळ संपूर्ण अंगणात पसरायचा.</p>
@@ -368,7 +368,7 @@ export default function Home() {
                 </div>
                 <div>
                   <p className="font-bold text-gray-900 text-base mb-1 tracking-wide">Call Us</p>
-                  <a href="tel:9156234902" className="text-orange-700 hover:text-orange-800 font-semibold text-lg tracking-wide">9156234902</a>
+                  <a href="tel:9156234902" className="text-orange-700 hover:text-orange-800 font-semibold text-lg tracking-wide">9422024902</a>
                 </div>
               </div>
               
@@ -386,7 +386,7 @@ export default function Home() {
             </div>
             
             <a 
-              href="https://wa.me/919156234902" 
+              href="https://wa.me/9422024902" 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center justify-center gap-2 bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-3 rounded-full font-bold text-base tracking-wide transition mt-6 shadow-xl hover:shadow-2xl hover:scale-105"
@@ -406,18 +406,18 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <a href="#" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-br from-orange-50 to-amber-50 p-6 rounded-xl shadow-lg hover:shadow-2xl transition text-center">
               <div className="text-4xl mb-3">📜</div>
-              <h3 className="text-lg font-bold text-orange-600 mb-2">FSSAI License</h3>
-              <p className="text-sm text-gray-600">Food Safety & Standards Authority of India</p>
+              <h3 className="text-lg font-bold text-orange-600 mb-2">Fissai number</h3>
+              <p className="text-sm text-gray-600">11525026000190</p>
             </a>
             <a href="#" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-br from-orange-50 to-amber-50 p-6 rounded-xl shadow-lg hover:shadow-2xl transition text-center">
               <div className="text-4xl mb-3">✅</div>
-              <h3 className="text-lg font-bold text-orange-600 mb-2">ISO Certification</h3>
-              <p className="text-sm text-gray-600">Quality Management System</p>
+              <h3 className="text-lg font-bold text-orange-600 mb-2">GSTIN</h3>
+              <p className="text-sm text-gray-600">27MTOPS4381M1ZF</p>
             </a>
             <a href="#" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-br from-orange-50 to-amber-50 p-6 rounded-xl shadow-lg hover:shadow-2xl transition text-center">
               <div className="text-4xl mb-3">🌿</div>
-              <h3 className="text-lg font-bold text-orange-600 mb-2">Organic Certificate</h3>
-              <p className="text-sm text-gray-600">Certified Organic Products</p>
+              <h3 className="text-lg font-bold text-orange-600 mb-2">Udyam registration No</h3>
+              <p className="text-sm text-gray-600">UDYAM-MH-31-0046275</p>
             </a>
           </div>
         </div>
@@ -431,8 +431,8 @@ export default function Home() {
       </section>
 
       <section id="latest" className="py-8 sm:py-12 px-4 sm:px-6 bg-gradient-to-b from-amber-50 to-orange-50">
-        <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent mb-3 text-center">Latest Launches</h2>
-        <p className="text-sm sm:text-base text-gray-700 text-center mb-8">Discover our newest premium masale blends!</p>
+        <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent mb-3 text-center">Upcoming Products</h2>
+        <p className="text-sm sm:text-base text-gray-700 text-center mb-8">Discover our newest premium blends!</p>
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
           <div className="relative group overflow-hidden rounded-xl shadow-xl hover:shadow-2xl transition-all">
@@ -440,13 +440,12 @@ export default function Home() {
               <span className="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">NEW</span>
             </div>
             <img 
-              src="paneer.jpg" 
-              alt="Paneer Tikka Masala" 
+              src="kashmirilal.jpg" 
+              alt="Kashmiri chilly powder" 
               className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
             />
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-              <h3 className="text-white font-bold text-lg">Paneer Tikka Masala</h3>
-              <p className="text-orange-300 font-semibold">₹170 / 100g</p>
+              <h3 className="text-white font-bold text-lg">Kashmiri chilly powder</h3>
             </div>
           </div>
 
@@ -455,43 +454,12 @@ export default function Home() {
               <span className="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">NEW</span>
             </div>
             <img 
-              src="kolhapuri.jpg" 
-              alt="Kolhapuri Masala" 
+              src="halad.jpg" 
+              alt="Gavathi Halad" 
               className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
             />
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-              <h3 className="text-white font-bold text-lg">Kolhapuri Masala</h3>
-              <p className="text-orange-300 font-semibold">₹195 / 100g</p>
-            </div>
-          </div>
-
-          <div className="relative group overflow-hidden rounded-xl shadow-xl hover:shadow-2xl transition-all">
-            <div className="absolute top-3 right-3 z-10">
-              <span className="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">NEW</span>
-            </div>
-            <img 
-              src="https://images.unsplash.com/photo-1505253758473-96b7015fcd40?w=400&q=80" 
-              alt="Rajasthani Masala" 
-              className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
-            />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-              <h3 className="text-white font-bold text-lg">Rajasthani Masala</h3>
-              <p className="text-orange-300 font-semibold">₹185 / 100g</p>
-            </div>
-          </div>
-
-          <div className="relative group overflow-hidden rounded-xl shadow-xl hover:shadow-2xl transition-all">
-            <div className="absolute top-3 right-3 z-10">
-              <span className="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">NEW</span>
-            </div>
-            <img 
-              src="Goan Fish Curry.jpg" 
-              alt="Fish Curry Masala" 
-              className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-300"
-            />
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
-              <h3 className="text-white font-bold text-lg">Fish Curry Masala</h3>
-              <p className="text-orange-300 font-semibold">₹175 / 100g</p>
+              <h3 className="text-white font-bold text-lg">Gavathi Halad</h3>
             </div>
           </div>
         </div>

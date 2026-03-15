@@ -3,53 +3,8 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCart } from "../context/CartContext";
 import Navbar from "../components/Navbar";
-
-const productVariants: { [key: string]: { id: string; label: string; price: number }[] } = {
-  "Malvani Bhajka Masala": [
-    { id: "250g", label: "250g", price: 266 },
-    { id: "500g", label: "500g", price: 493 },
-    { id: "1kg", label: "1kg", price: 939 },
-  ],
-  "Malvani Macchi Masala": [
-    { id: "250g", label: "250g", price: 227 },
-    { id: "500g", label: "500g", price: 416 },
-    { id: "1kg", label: "1kg", price: 787 },
-  ],
-  "Special Malvani Chicken Masala": [
-    { id: "250g", label: "250g", price: 319 },
-    { id: "500g", label: "500g", price: 599 },
-    { id: "1kg", label: "1kg", price: 1150 },
-  ],
-  "Pavbhaji Masala": [
-    { id: "250g", label: "250g", price: 274 },
-    { id: "500g", label: "500g", price: 510 },
-    { id: "1kg", label: "1kg", price: 973 },
-  ],
-  "Kulith Pith": [
-    { id: "250g", label: "250g", price: 127 },
-    { id: "500g", label: "500g", price: 238 },
-    { id: "1kg", label: "1kg", price: 444 },
-  ],
-  "Vade Pith": [
-    { id: "500g", label: "500g", price: 154 },
-    { id: "1kg", label: "1kg", price: 279 },
-  ],
-  "Gavathi Halad": [
-    { id: "250g", label: "250g", price: 137 },
-    { id: "500g", label: "500g", price: 258 },
-    { id: "1kg", label: "1kg", price: 487 },
-  ],
-  "Kohala Sandage": [
-    { id: "250g", label: "250g", price: 396 },
-    { id: "500g", label: "500g", price: 776 },
-    { id: "1kg", label: "1kg", price: 1519 },
-  ],
-  default: [
-    { id: "250g", label: "250g", price: 150 },
-    { id: "500g", label: "500g", price: 280 },
-    { id: "1kg", label: "1kg", price: 520 },
-  ],
-};
+import Link from "next/link";
+import { allProducts, productVariants, productDetails } from "../data/products";
 
 export default function ProductDetail() {
   const router = useRouter();
@@ -66,6 +21,8 @@ export default function ProductDetail() {
   const variants = productVariants[product.title] || productVariants.default;
   const [selectedVariant, setSelectedVariant] = useState(variants[0]);
   const [quantity, setQuantity] = useState(1);
+  const [readMore, setReadMore] = useState(false);
+  const details = productDetails[product.title];
 
   const handleAddToCart = () => {
     addToCart({
@@ -132,6 +89,53 @@ export default function ProductDetail() {
                 View Cart
               </button>
             </div>
+          </div>
+        </div>
+        {details && (
+          <div className="mt-10 border border-orange-100 rounded-2xl overflow-hidden">
+            <div className="bg-gradient-to-r from-orange-50 to-amber-50 px-6 py-4 border-b border-orange-100">
+              <h2 className="text-xl font-bold text-gray-800">Features &amp; Details</h2>
+            </div>
+            <div className="divide-y divide-orange-50">
+              {details.features.map((f) => (
+                <div key={f.label} className="flex gap-4 px-6 py-3">
+                  <span className="text-base font-semibold text-orange-700 min-w-[140px]">{f.label}</span>
+                  <span className="text-base text-gray-700">{f.value}</span>
+                </div>
+              ))}
+            </div>
+            {readMore && (
+              <div className="px-6 py-4 bg-orange-50/40 border-t border-orange-100">
+                <p className="text-base text-gray-700 whitespace-pre-line leading-relaxed">{details.fullDescription}</p>
+              </div>
+            )}
+            <div className="px-6 py-3 border-t border-orange-100">
+              <button
+                onClick={() => setReadMore(!readMore)}
+                className="text-orange-600 font-semibold text-base hover:underline"
+              >
+                {readMore ? "Show Less ▲" : "Read More ▼"}
+              </button>
+            </div>
+          </div>
+        )}
+
+        <div className="mt-12">
+          <h2 className="text-xl font-bold text-gray-800 mb-4">You may also like</h2>
+          <div className="flex gap-4 overflow-x-auto pb-2">
+            {allProducts.filter(p => p.title !== product.title).map((p) => (
+              <Link
+                key={p.title}
+                href={`/product?data=${encodeURIComponent(JSON.stringify({ title: p.title, image: p.image, description: p.description }))}`}
+                className="min-w-[160px] max-w-[160px] flex-shrink-0 rounded-xl overflow-hidden shadow-md hover:shadow-xl hover:scale-105 transition-all relative"
+              >
+                <img src={p.image} alt={p.title} className="w-full h-32 object-cover" />
+                <div className="p-2 bg-white">
+                  <p className="text-xs font-semibold text-gray-800 leading-tight line-clamp-2">{p.title}</p>
+                  <p className="text-orange-600 font-bold text-sm mt-1">{p.price}</p>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </div>

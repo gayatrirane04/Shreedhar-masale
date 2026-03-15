@@ -83,16 +83,32 @@ export default function Cart() {
   };
 
   const handleCheckout = () => {
-    // Open WhatsApp first
-    const orderDetails = cart.map(item => `${item.name} (${item.variant}) x${item.quantity} - ₹${item.price * item.quantity}`).join('%0A');
-    const message = `Hi, I want to order:%0A%0A${orderDetails}%0A%0ATotal: ₹${totalAmount}`;
+    const orderId = `SM${Date.now().toString().slice(-8)}`;
+    const date = new Date().toLocaleDateString('en-IN');
+    const itemLines = cart.map(item =>
+      `  - ${item.name} (${item.variant}) x${item.quantity} = ₹${item.price * item.quantity}`
+    ).join('%0A');
+
+    const message =
+      `Hi, I want to place an order:%0A%0A` +
+      `*SHREEDHAR MASALE - ORDER INVOICE*%0A` +
+      `--------------------------------%0A` +
+      `*Order ID:* ${orderId}%0A` +
+      `*Date:* ${date}%0A` +
+      `--------------------------------%0A` +
+      `*Items Ordered:*%0A` +
+      `${itemLines}%0A%0A` +
+      `--------------------------------%0A` +
+      `*Total Amount: ₹${totalAmount}*%0A` +
+      `--------------------------------%0A` +
+      `_Shreedhar Masale - The Authentic taste of Konkan_`;
+
     window.open(`https://wa.me/919156234902?text=${message}`, '_blank');
-    
-    // Then generate invoice after a short delay
+
     setTimeout(() => {
       generateInvoice();
     }, 500);
-    
+
     clearCart();
   };
 
