@@ -105,8 +105,14 @@ export default function ProductDetail() {
               ))}
             </div>
             {readMore && (
-              <div className="px-6 py-4 bg-orange-50/40 border-t border-orange-100">
-                <p className="text-base text-gray-700 whitespace-pre-line leading-relaxed">{details.fullDescription}</p>
+              <div className="px-6 py-4 bg-orange-50/40 border-t border-orange-100 space-y-2">
+                {details.fullDescription.split('\n').map((line, i) => {
+                  if (!line.trim()) return <div key={i} className="h-2" />;
+                  const isHeading = !line.startsWith('-') && !line.startsWith('(') && line === line.trimStart() && !line.startsWith('Perfect') && !line.startsWith('This') && !line.startsWith('Just') && !line.startsWith('Experience') && !line.startsWith('Produced') && !line.startsWith('Crafted');
+                  return isHeading
+                    ? <p key={i} className="text-base font-bold text-gray-900">{line}</p>
+                    : <p key={i} className="text-base text-gray-600 leading-relaxed">{line}</p>;
+                })}
               </div>
             )}
             <div className="px-6 py-3 border-t border-orange-100">

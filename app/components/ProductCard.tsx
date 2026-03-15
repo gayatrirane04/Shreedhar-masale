@@ -27,14 +27,9 @@ export default function ProductCard({ title, price, description, originalPrice, 
         
         <div className="relative h-full flex flex-col justify-between p-3 sm:p-6">
           <div className="flex justify-end">
-            <div className="relative w-16 h-16 sm:w-28 sm:h-28">
-              <div className="absolute inset-0 bg-orange-400 rounded-full blur-2xl opacity-70 animate-pulse"></div>
-              <div className="relative z-10 w-full h-full flex items-center justify-center text-4xl sm:text-7xl animate-pulse">
-                💥
-              </div>
-              <div className="absolute inset-0 flex items-center justify-center z-20">
-                <span className="text-white font-extrabold text-xs sm:text-lg drop-shadow-2xl">{discount}</span>
-              </div>
+            <div className="relative w-12 h-12 sm:w-16 sm:h-16">
+              <img src="/discount.png" alt="discount" className="w-full h-full object-contain" />
+              <span className="absolute inset-0 flex items-center justify-center text-white font-extrabold text-[10px] sm:text-xs drop-shadow-2xl leading-none pb-1">{discount}</span>
             </div>
           </div>
           

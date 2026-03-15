@@ -404,20 +404,26 @@ export default function Home() {
         <div className="max-w-6xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent mb-6 text-center">Licenses & Certifications</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <a href="#" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-br from-orange-50 to-amber-50 p-6 rounded-xl shadow-lg hover:shadow-2xl transition text-center">
-              <div className="text-4xl mb-3">📜</div>
-              <h3 className="text-lg font-bold text-orange-600 mb-2">Fissai number</h3>
-              <p className="text-sm text-gray-600">11525026000190</p>
+            <a href="#" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-br from-orange-50 to-amber-50 p-4 rounded-xl shadow-lg hover:shadow-2xl transition flex items-center gap-4">
+              <img src="fassai new.jpg" alt="fassai logo" className="w-14 h-14 object-contain flex-shrink-0" />
+              <div>
+                <h3 className="text-base font-bold text-orange-600">Fssai Number</h3>
+                <p className="text-sm text-gray-600">11525026000190</p>
+              </div>
             </a>
-            <a href="#" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-br from-orange-50 to-amber-50 p-6 rounded-xl shadow-lg hover:shadow-2xl transition text-center">
-              <div className="text-4xl mb-3">✅</div>
-              <h3 className="text-lg font-bold text-orange-600 mb-2">GSTIN</h3>
-              <p className="text-sm text-gray-600">27MTOPS4381M1ZF</p>
+            <a href="#" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-br from-orange-50 to-amber-50 p-4 rounded-xl shadow-lg hover:shadow-2xl transition flex items-center gap-4">
+              <img src="gst.jpg" alt="gst" className="w-14 h-14 object-contain flex-shrink-0" />
+              <div>
+                <h3 className="text-base font-bold text-orange-600">GSTIN</h3>
+                <p className="text-sm text-gray-600">27MTOPS4381M1ZF</p>
+              </div>
             </a>
-            <a href="#" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-br from-orange-50 to-amber-50 p-6 rounded-xl shadow-lg hover:shadow-2xl transition text-center">
-              <div className="text-4xl mb-3">🌿</div>
-              <h3 className="text-lg font-bold text-orange-600 mb-2">Udyam registration No</h3>
-              <p className="text-sm text-gray-600">UDYAM-MH-31-0046275</p>
+            <a href="#" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-br from-orange-50 to-amber-50 p-4 rounded-xl shadow-lg hover:shadow-2xl transition flex items-center gap-4">
+              <img src="udyam.jpg" alt="udyam logo" className="w-14 h-14 object-contain flex-shrink-0" />
+              <div>
+                <h3 className="text-base font-bold text-orange-600">Udyam Registration No</h3>
+                <p className="text-sm text-gray-600">UDYAM-MH-31-0046275</p>
+              </div>
             </a>
           </div>
         </div>
