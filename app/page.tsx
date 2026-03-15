@@ -79,7 +79,7 @@ export default function Home() {
 
       <section id="products" className="bg-gradient-to-b from-amber-50 via-orange-50 to-white py-8 sm:py-12 px-4 sm:px-6">
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent mb-6 sm:mb-8">Our Premium Masale Collection</h2>
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
           <ProductCard 
             title="Malvani Bhajka Masala" 
             price="₹266"
