@@ -36,7 +36,7 @@ export default function Cart() {
         <div class="header">
           <h1>🌶️ Shreedhar Masale</h1>
           <p>The Authentic taste of Konkan</p>
-          <p>Phone: 9156234902 | Email: info@shreedharmasale.com</p>
+          <p>Phone: 9422024902 | Email: info@shreedharmasale.com</p>
         </div>
         <div class="order-details">
           <h2>Order Summary</h2>
@@ -71,7 +71,7 @@ export default function Cart() {
         </table>
         <div class="footer">
           <p>Thank you for your order!</p>
-          <p>For any queries, contact us at 9156234902</p>
+          <p>For any queries, contact us at 9422024902</p>
           <button onclick="window.print()" style="background: #f97316; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 20px;">Print Invoice</button>
         </div>
       </body>
@@ -103,7 +103,7 @@ export default function Cart() {
       `--------------------------------%0A` +
       `_Shreedhar Masale - The Authentic taste of Konkan_`;
 
-    window.open(`https://wa.me/919156234902?text=${message}`, '_blank');
+    window.open(`https://wa.me/919422024902?text=${message}`, '_blank');
 
     setTimeout(() => {
       generateInvoice();

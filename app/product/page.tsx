@@ -93,6 +93,10 @@ export default function ProductDetail() {
         </div>
         {details && (
           <div className="mt-10 border border-orange-100 rounded-2xl overflow-hidden">
+            <div className="bg-gradient-to-r from-orange-50 to-amber-50 px-6 py-3 border-b border-orange-100 flex items-center justify-between">
+              <p className="text-sm text-gray-700 font-medium">Dispatched within 48 hours of order confirmation.</p>
+              <a href="/our policies.pdf" target="_blank" rel="noopener noreferrer" className="text-orange-600 font-semibold text-sm hover:underline whitespace-nowrap ml-4">📄 View Shipping Policy</a>
+            </div>
             <div className="bg-gradient-to-r from-orange-50 to-amber-50 px-6 py-4 border-b border-orange-100">
               <h2 className="text-xl font-bold text-gray-800">Features &amp; Details</h2>
             </div>

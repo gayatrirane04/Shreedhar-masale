@@ -368,7 +368,7 @@ export default function Home() {
                 </div>
                 <div>
                   <p className="font-bold text-gray-900 text-base mb-1 tracking-wide">Call Us</p>
-                  <a href="tel:9156234902" className="text-orange-700 hover:text-orange-800 font-semibold text-lg tracking-wide">9422024902</a>
+                  <a href="tel:9422024902" className="text-orange-700 hover:text-orange-800 font-semibold text-lg tracking-wide">9422024902</a>
                 </div>
               </div>
               
