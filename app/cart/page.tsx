@@ -2,89 +2,33 @@
 import { useRouter } from "next/navigation";
 import { useCart } from "../context/CartContext";
 import Navbar from "../components/Navbar";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import html2canvas from "html2canvas";
 
 export default function Cart() {
   const router = useRouter();
   const { cart, removeFromCart, updateQuantity, totalAmount, clearCart } = useCart();
   const invoiceRef = useRef<HTMLDivElement>(null);
+  const [invoiceReady, setInvoiceReady] = useState(false);
+  const [orderId] = useState(`SM${Date.now().toString().slice(-8)}`);
+  const [orderDate] = useState(new Date().toLocaleDateString('en-IN'));
 
-  const generateInvoice = () => {
-    const invoiceWindow = window.open('', '_blank');
-    if (!invoiceWindow) return;
-
-    const invoiceHTML = `
-      <!DOCTYPE html>
-      <html>
-      <head>
-        <title>Order Invoice - Shreedhar Masale</title>
-        <style>
-          body { font-family: Arial, sans-serif; padding: 40px; max-width: 800px; margin: 0 auto; }
-          .header { text-align: center; border-bottom: 3px solid #ea580c; padding-bottom: 20px; margin-bottom: 30px; }
-          .header h1 { color: #ea580c; margin: 0; }
-          .header p { color: #666; margin: 5px 0; }
-          .order-details { margin: 30px 0; }
-          table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-          th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-          th { background: #f97316; color: white; }
-          .total-row { font-weight: bold; font-size: 18px; background: #fff7ed; }
-          .footer { margin-top: 40px; text-align: center; color: #666; border-top: 2px solid #ddd; padding-top: 20px; }
-          @media print { button { display: none; } }
-        </style>
-      </head>
-      <body>
-        <div class="header">
-          <h1>🌶️ Shreedhar Masale</h1>
-          <p>The Authentic taste of Konkan</p>
-          <p>Phone: 9422024902 | Email: sales.shreedharmasale@gmail.com</p>
-        </div>
-        <div class="order-details">
-          <h2>Order Summary</h2>
-          <p><strong>Date:</strong> ${new Date().toLocaleDateString('en-IN')}</p>
-          <p><strong>Order ID:</strong> SM${Date.now().toString().slice(-8)}</p>
-        </div>
-        <table>
-          <thead>
-            <tr>
-              <th>Product</th>
-              <th>Variant</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Subtotal</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${cart.map(item => `
-              <tr>
-                <td>${item.name}</td>
-                <td>${item.variant}</td>
-                <td>₹${item.price}</td>
-                <td>${item.quantity}</td>
-                <td>₹${item.price * item.quantity}</td>
-              </tr>
-            `).join('')}
-            <tr class="total-row">
-              <td colspan="4" style="text-align: right;">Total Amount:</td>
-              <td>₹${totalAmount}</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="footer">
-          <p>Thank you for your order!</p>
-          <p>For any queries, contact us at 9422024902</p>
-          <button onclick="window.print()" style="background: #f97316; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 20px;">Print Invoice</button>
-        </div>
-      </body>
-      </html>
-    `;
-
-    invoiceWindow.document.write(invoiceHTML);
-    invoiceWindow.document.close();
+  const generateAndDownloadInvoice = async (): Promise<string | null> => {
+    if (!invoiceRef.current) return null;
+    setInvoiceReady(true);
+    await new Promise(r => setTimeout(r, 100));
+    const canvas = await html2canvas(invoiceRef.current, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
+    const imgData = canvas.toDataURL('image/png');
+    const link = document.createElement('a');
+    link.download = `Shreedhar-Masale-Invoice-${orderId}.png`;
+    link.href = imgData;
+    link.click();
+    return imgData;
   };
 
-  const handleCheckout = () => {
-    const orderId = `SM${Date.now().toString().slice(-8)}`;
-    const date = new Date().toLocaleDateString('en-IN');
+  const handleCheckout = async () => {
+    await generateAndDownloadInvoice();
+
     const itemLines = cart.map(item =>
       `  - ${item.name} (${item.variant}) x${item.quantity} = ₹${item.price * item.quantity}`
     ).join('%0A');
@@ -94,23 +38,69 @@ export default function Cart() {
       `*SHREEDHAR MASALE - ORDER INVOICE*%0A` +
       `--------------------------------%0A` +
       `*Order ID:* ${orderId}%0A` +
-      `*Date:* ${date}%0A` +
+      `*Date:* ${orderDate}%0A` +
       `--------------------------------%0A` +
       `*Items Ordered:*%0A` +
       `${itemLines}%0A%0A` +
       `--------------------------------%0A` +
       `*Total Amount: ₹${totalAmount}*%0A` +
       `--------------------------------%0A` +
+      `📎 _Invoice image has been downloaded. Please attach it to this chat for verification._%0A` +
       `_Shreedhar Masale - The Authentic taste of Konkan_`;
 
     window.open(`https://wa.me/919422024902?text=${message}`, '_blank');
-    generateInvoice();
     clearCart();
   };
 
   return (
     <div className="bg-gradient-to-b from-orange-50 to-amber-50 min-h-screen">
       <Navbar />
+
+      {/* Hidden Invoice Template for html2canvas */}
+      <div className="fixed -left-[9999px] top-0">
+        <div ref={invoiceRef} style={{ width: '700px', backgroundColor: '#ffffff', padding: '40px', fontFamily: 'Arial, sans-serif', color: '#111111' }}>
+          <div style={{ textAlign: 'center', borderBottom: '3px solid #ea580c', paddingBottom: '20px', marginBottom: '30px' }}>
+            <h1 style={{ color: '#ea580c', fontSize: '28px', margin: '0 0 8px 0' }}>Shreedhar Masale</h1>
+            <p style={{ color: '#111111', margin: '4px 0', fontSize: '14px' }}>The Authentic taste of Konkan</p>
+            <p style={{ color: '#111111', margin: '4px 0', fontSize: '13px' }}>Phone: 9422024902 | Email: sales.shreedharmasale@gmail.com</p>
+          </div>
+          <div style={{ marginBottom: '24px' }}>
+            <h2 style={{ fontSize: '18px', marginBottom: '8px', color: '#111111' }}>Order Summary</h2>
+            <p style={{ margin: '4px 0', fontSize: '14px', color: '#111111' }}><strong>Order ID:</strong> {orderId}</p>
+            <p style={{ margin: '4px 0', fontSize: '14px', color: '#111111' }}><strong>Date:</strong> {orderDate}</p>
+          </div>
+          <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '20px' }}>
+            <thead>
+              <tr style={{ backgroundColor: '#f97316', color: '#ffffff' }}>
+                <th style={{ padding: '10px', textAlign: 'left', fontSize: '14px' }}>Product</th>
+                <th style={{ padding: '10px', textAlign: 'left', fontSize: '14px' }}>Variant</th>
+                <th style={{ padding: '10px', textAlign: 'left', fontSize: '14px' }}>Price</th>
+                <th style={{ padding: '10px', textAlign: 'left', fontSize: '14px' }}>Qty</th>
+                <th style={{ padding: '10px', textAlign: 'left', fontSize: '14px' }}>Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cart.map((item, i) => (
+                <tr key={i} style={{ borderBottom: '1px solid #ddd', backgroundColor: i % 2 === 0 ? '#ffffff' : '#fff7ed' }}>
+                  <td style={{ padding: '10px', fontSize: '13px', color: '#111111' }}>{item.name}</td>
+                  <td style={{ padding: '10px', fontSize: '13px', color: '#111111' }}>{item.variant}</td>
+                  <td style={{ padding: '10px', fontSize: '13px', color: '#111111' }}>₹{item.price}</td>
+                  <td style={{ padding: '10px', fontSize: '13px', color: '#111111' }}>{item.quantity}</td>
+                  <td style={{ padding: '10px', fontSize: '13px', color: '#111111' }}>₹{item.price * item.quantity}</td>
+                </tr>
+              ))}
+              <tr style={{ backgroundColor: '#fff7ed', fontWeight: 'bold' }}>
+                <td colSpan={4} style={{ padding: '12px', textAlign: 'right', fontSize: '15px', color: '#111111' }}>Total Amount:</td>
+                <td style={{ padding: '12px', fontSize: '15px', color: '#ea580c' }}>₹{totalAmount}</td>
+              </tr>
+            </tbody>
+          </table>
+          <div style={{ textAlign: 'center', borderTop: '2px solid #ddd', paddingTop: '20px', fontSize: '13px', color: '#111111' }}>
+            <p style={{ margin: '4px 0' }}>Thank you for your order!</p>
+            <p style={{ margin: '4px 0' }}>This is a system-generated invoice. Please attach this image when sending your order on WhatsApp.</p>
+          </div>
+        </div>
+      </div>
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold text-gray-800">Shopping Cart</h1>
@@ -156,12 +146,13 @@ export default function Cart() {
                 <span className="text-sm text-gray-600 font-medium">💳 View Payment Policy</span>
                 <a href="/payment-policy" className="text-orange-600 font-semibold text-sm hover:underline">📄 Know More</a>
               </div>
-              <button onClick={handleCheckout} className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 rounded-lg font-semibold hover:scale-105 transition flex items-center justify-center gap-2 mb-3">
+              <button onClick={handleCheckout} className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 rounded-lg font-semibold hover:scale-105 transition flex items-center justify-center gap-2 mb-2">
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
                 </svg>
                 Order via WhatsApp
               </button>
+              <p className="text-xs text-gray-500 text-center mb-3">📎 Invoice image will be downloaded automatically. Please attach it in the WhatsApp chat.</p>
               <a
                 href={`mailto:sales.shreedharmasale@gmail.com?subject=New Order - Shreedhar Masale&body=Hi, I want to place an order:%0A%0A${cart.map(item => `${item.name} (${item.variant}) x${item.quantity} = ₹${item.price * item.quantity}`).join('%0A')}%0A%0ATotal: ₹${totalAmount}`}
                 className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-lg font-semibold hover:scale-105 transition flex items-center justify-center gap-2"
