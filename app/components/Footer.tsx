@@ -33,7 +33,7 @@ export default function Footer() {
               </p>
               <p className="flex items-center gap-2">
                 <span className="text-amber-300">✉️</span>
-                <span>omkarsawant21489@gmail.com</span>
+                <span>sales.shreedharmasale@gmail.com</span>
               </p>
             </div>
           </div>
@@ -46,7 +46,7 @@ export default function Footer() {
               <li><a href="/#about" className="text-amber-100 hover:text-white transition">About Us</a></li>
               <li><a href="/#contact" className="text-amber-100 hover:text-white transition">Contact</a></li>
               <li><a href="/#reviews" className="text-amber-100 hover:text-white transition">Reviews</a></li>
-              <li><a href="/#latest" className="text-amber-100 hover:text-white transition">Latest Products</a></li>
+              <li><a href="/#latest" className="text-amber-100 hover:text-white transition">Upcoming Products</a></li>
             </ul>
           </div>
 
@@ -55,27 +55,27 @@ export default function Footer() {
             <h3 className="text-lg font-semibold text-amber-200">Policies</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="/our policies.pdf" target="_blank" rel="noopener noreferrer" 
+                <a href="/privacy-policy" 
                    className="text-amber-100 hover:text-white transition flex items-center gap-2">
                   <span>📄</span> Privacy Policy
                 </a>
               </li>
               <li>
-                <a href="/our policies.pdf" target="_blank" rel="noopener noreferrer" 
+                <a href="/return-refund-policy" 
                    className="text-amber-100 hover:text-white transition flex items-center gap-2">
                   <span>🔄</span> Return & Refund Policy
                 </a>
               </li>
               <li>
-                <a href="/our policies.pdf" target="_blank" rel="noopener noreferrer" 
+                <a href="/shipping-policy" 
                    className="text-amber-100 hover:text-white transition flex items-center gap-2">
                   <span>🚚</span> Shipping Policy
                 </a>
               </li>
               <li>
-                <a href="/our policies.pdf" target="_blank" rel="noopener noreferrer" 
+                <a href="/payment-policy" 
                    className="text-amber-100 hover:text-white transition flex items-center gap-2">
-                  <span>📋</span> Terms & Conditions
+                  <span>📋</span> Payment Policy
                 </a>
               </li>
             </ul>

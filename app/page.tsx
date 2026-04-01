@@ -183,7 +183,7 @@ export default function Home() {
               </button>
             </div>
             
-            <div id="about-content" className="marathi text-gray-900 space-y-4 leading-relaxed text-base sm:text-lg relative z-10 font-medium" style={{fontFamily: 'Georgia, serif'}}>
+            <div id="about-content" className="marathi text-gray-900 space-y-4 leading-relaxed text-base sm:text-lg relative z-10 font-bold" style={{fontFamily: 'var(--font-baloo)'}}>
               <div className="marathi-text max-h-96 overflow-y-auto pr-2">
                 <p>तळकोकणातील एका छोट्याशा गावात…</p>
                 <p>मातीच्या घरातल्या चुलीवर शिजणाऱ्या स्वयंपाकाचा दरवळ संपूर्ण अंगणात पसरायचा.</p>
@@ -381,7 +381,7 @@ export default function Home() {
                 </div>
                 <div>
                   <p className="font-bold text-gray-900 text-base mb-1 tracking-wide">Email Us</p>
-                  <a href="mailto:info@shreedharmasale.com" className="text-orange-700 hover:text-orange-800 font-semibold text-sm tracking-wide">info@shreedharmasale.com</a>
+                  <a href="mailto:sales.shreedharmasale@gmail.com" className="text-orange-700 hover:text-orange-800 font-semibold text-sm tracking-wide">sales.shreedharmasale@gmail.com</a>
                 </div>
               </div>
             </div>

@@ -36,7 +36,7 @@ export default function Cart() {
         <div class="header">
           <h1>🌶️ Shreedhar Masale</h1>
           <p>The Authentic taste of Konkan</p>
-          <p>Phone: 9422024902 | Email: info@shreedharmasale.com</p>
+          <p>Phone: 9422024902 | Email: sales.shreedharmasale@gmail.com</p>
         </div>
         <div class="order-details">
           <h2>Order Summary</h2>
@@ -154,7 +154,7 @@ export default function Cart() {
               </div>
               <div className="flex items-center justify-between mb-4 p-3 bg-white rounded-lg border border-orange-100">
                 <span className="text-sm text-gray-600 font-medium">💳 View Payment Policy</span>
-                <a href="/our policies.pdf" target="_blank" rel="noopener noreferrer" className="text-orange-600 font-semibold text-sm hover:underline">📄 Know More</a>
+                <a href="/payment-policy" className="text-orange-600 font-semibold text-sm hover:underline">📄 Know More</a>
               </div>
               <button onClick={handleCheckout} className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white py-3 rounded-lg font-semibold hover:scale-105 transition flex items-center justify-center gap-2 mb-3">
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -163,7 +163,7 @@ export default function Cart() {
                 Order via WhatsApp
               </button>
               <a
-                href={`mailto:omkarsawant21489@gmail.com?subject=New Order - Shreedhar Masale&body=Hi, I want to place an order:%0A%0A${cart.map(item => `${item.name} (${item.variant}) x${item.quantity} = ₹${item.price * item.quantity}`).join('%0A')}%0A%0ATotal: ₹${totalAmount}`}
+                href={`mailto:sales.shreedharmasale@gmail.com?subject=New Order - Shreedhar Masale&body=Hi, I want to place an order:%0A%0A${cart.map(item => `${item.name} (${item.variant}) x${item.quantity} = ₹${item.price * item.quantity}`).join('%0A')}%0A%0ATotal: ₹${totalAmount}`}
                 className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-lg font-semibold hover:scale-105 transition flex items-center justify-center gap-2"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

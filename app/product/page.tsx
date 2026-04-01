@@ -54,7 +54,7 @@ export default function ProductDetail() {
             
             <div className="flex items-center gap-3 mb-6 p-3 bg-orange-50 rounded-lg border border-orange-100">
               <span className="text-sm text-gray-600 font-medium">Returns & Refunds:</span>
-              <a href="/our policies.pdf" target="_blank" rel="noopener noreferrer" className="text-orange-600 text-sm font-semibold hover:underline">📄 View Refund & Return Policy</a>
+              <a href="/return-refund-policy" className="text-orange-600 text-sm font-semibold hover:underline">📄 View Refund & Return Policy</a>
             </div>
             
             <div className="mb-6">
@@ -102,7 +102,7 @@ export default function ProductDetail() {
             <div className="border border-orange-100 rounded-2xl overflow-hidden">
               <div className="bg-gradient-to-r from-orange-50 to-amber-50 px-6 py-3 flex items-center justify-between border-b border-orange-200">
                 <p className="text-sm text-gray-700 font-medium">Dispatched within 48 hours of order confirmation.</p>
-                <a href="/our policies.pdf" target="_blank" rel="noopener noreferrer" className="text-orange-600 font-semibold text-sm hover:underline whitespace-nowrap ml-4">📄 View Shipping Policy</a>
+                <a href="/shipping-policy" className="text-orange-600 font-semibold text-sm hover:underline whitespace-nowrap ml-4">📄 View Shipping Policy</a>
               </div>
             </div>
             
