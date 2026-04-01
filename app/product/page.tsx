@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCart } from "../context/CartContext";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 import Link from "next/link";
 import { allProducts, productVariants, productDetails } from "../data/products";
 
@@ -49,7 +50,12 @@ export default function ProductDetail() {
           
           <div>
             <h1 className="text-3xl font-bold text-gray-800 mb-2">{product.title}</h1>
-            <p className="text-gray-700 mb-4">{product.description}</p>
+            <p className="text-gray-700 mb-6">{product.description}</p>
+            
+            <div className="flex items-center gap-3 mb-6 p-3 bg-orange-50 rounded-lg border border-orange-100">
+              <span className="text-sm text-gray-600 font-medium">Returns & Refunds:</span>
+              <a href="/our policies.pdf" target="_blank" rel="noopener noreferrer" className="text-orange-600 text-sm font-semibold hover:underline">📄 View Refund & Return Policy</a>
+            </div>
             
             <div className="mb-6">
               <h3 className="font-semibold text-gray-800 mb-2">Select Variant:</h3>
@@ -92,40 +98,45 @@ export default function ProductDetail() {
           </div>
         </div>
         {details && (
-          <div className="mt-10 border border-orange-100 rounded-2xl overflow-hidden">
-            <div className="bg-gradient-to-r from-orange-50 to-amber-50 px-6 py-3 border-b border-orange-100 flex items-center justify-between">
-              <p className="text-sm text-gray-700 font-medium">Dispatched within 48 hours of order confirmation.</p>
-              <a href="/our policies.pdf" target="_blank" rel="noopener noreferrer" className="text-orange-600 font-semibold text-sm hover:underline whitespace-nowrap ml-4">📄 View Shipping Policy</a>
-            </div>
-            <div className="bg-gradient-to-r from-orange-50 to-amber-50 px-6 py-4 border-b border-orange-100">
-              <h2 className="text-xl font-bold text-gray-800">Features &amp; Details</h2>
-            </div>
-            <div className="divide-y divide-orange-50">
-              {details.features.map((f) => (
-                <div key={f.label} className="flex gap-4 px-6 py-3">
-                  <span className="text-base font-semibold text-orange-700 min-w-[140px]">{f.label}</span>
-                  <span className="text-base text-gray-700">{f.value}</span>
-                </div>
-              ))}
-            </div>
-            {readMore && (
-              <div className="px-6 py-4 bg-orange-50/40 border-t border-orange-100 space-y-2">
-                {details.fullDescription.split('\n').map((line, i) => {
-                  if (!line.trim()) return <div key={i} className="h-2" />;
-                  const isHeading = !line.startsWith('-') && !line.startsWith('(') && line === line.trimStart() && !line.startsWith('Perfect') && !line.startsWith('This') && !line.startsWith('Just') && !line.startsWith('Experience') && !line.startsWith('Produced') && !line.startsWith('Crafted');
-                  return isHeading
-                    ? <p key={i} className="text-base font-bold text-gray-900">{line}</p>
-                    : <p key={i} className="text-base text-gray-600 leading-relaxed">{line}</p>;
-                })}
+          <div className="mt-12 space-y-8">
+            <div className="border border-orange-100 rounded-2xl overflow-hidden">
+              <div className="bg-gradient-to-r from-orange-50 to-amber-50 px-6 py-3 flex items-center justify-between border-b border-orange-200">
+                <p className="text-sm text-gray-700 font-medium">Dispatched within 48 hours of order confirmation.</p>
+                <a href="/our policies.pdf" target="_blank" rel="noopener noreferrer" className="text-orange-600 font-semibold text-sm hover:underline whitespace-nowrap ml-4">📄 View Shipping Policy</a>
               </div>
-            )}
-            <div className="px-6 py-3 border-t border-orange-100">
-              <button
-                onClick={() => setReadMore(!readMore)}
-                className="text-orange-600 font-semibold text-base hover:underline"
-              >
-                {readMore ? "Show Less ▲" : "Read More ▼"}
-              </button>
+            </div>
+            
+            <div className="border border-orange-100 rounded-2xl overflow-hidden">
+              <div className="px-6 py-4 border-b border-orange-100">
+                <h2 className="text-xl font-bold text-gray-800">Features &amp; Details</h2>
+              </div>
+              <div className="divide-y divide-orange-50">
+                {details.features.map((f) => (
+                  <div key={f.label} className="flex gap-4 px-6 py-3">
+                    <span className="text-base font-semibold text-orange-700 min-w-[140px]">{f.label}</span>
+                    <span className="text-base text-gray-700">{f.value}</span>
+                  </div>
+                ))}
+              </div>
+              {readMore && (
+                <div className="px-6 py-4 bg-orange-50/40 border-t border-orange-100 space-y-2">
+                  {details.fullDescription.split('\n').map((line, i) => {
+                    if (!line.trim()) return <div key={i} className="h-2" />;
+                    const isHeading = !line.startsWith('-') && !line.startsWith('(') && line === line.trimStart() && !line.startsWith('Perfect') && !line.startsWith('This') && !line.startsWith('Just') && !line.startsWith('Experience') && !line.startsWith('Produced') && !line.startsWith('Crafted');
+                    return isHeading
+                      ? <p key={i} className="text-base font-bold text-gray-900">{line}</p>
+                      : <p key={i} className="text-base text-gray-600 leading-relaxed">{line}</p>;
+                  })}
+                </div>
+              )}
+              <div className="px-6 py-3 border-t border-orange-100">
+                <button
+                  onClick={() => setReadMore(!readMore)}
+                  className="text-orange-600 font-semibold text-base hover:underline"
+                >
+                  {readMore ? "Show Less ▲" : "Read More ▼"}
+                </button>
+              </div>
             </div>
           </div>
         )}
@@ -149,6 +160,7 @@ export default function ProductDetail() {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

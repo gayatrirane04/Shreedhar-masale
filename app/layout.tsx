@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Noto_Sans_Devanagari, Tiro_Devanagari_Marathi } from "next/font/google";
+import { Geist, Geist_Mono, Noto_Sans_Devanagari } from "next/font/google";
 import { Suspense } from "react";
 import "./globals.css";
 import { CartProvider } from "./context/CartContext";
@@ -20,12 +20,6 @@ const notoDevanagari = Noto_Sans_Devanagari({
   weight: ["400", "500", "600", "700"],
 });
 
-const tiroDevanagari = Tiro_Devanagari_Marathi({
-  variable: "--font-tiro",
-  subsets: ["devanagari"],
-  weight: "400",
-});
-
 export const metadata: Metadata = {
   title: "Shreedhar Masale - Premium Indian Spices",
   description: "Authentic, high-quality spices made with traditional recipes",
@@ -37,9 +31,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${notoDevanagari.variable} ${tiroDevanagari.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${notoDevanagari.variable} antialiased`}
       >
         <Suspense fallback={<div className="min-h-screen">Loading...</div>}>
           <CartProvider>

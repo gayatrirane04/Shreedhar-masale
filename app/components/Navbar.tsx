@@ -35,6 +35,7 @@ export default function Navbar() {
               <li><a href="/#home" className="hover:bg-white/20 px-3 py-2 rounded transition">Home</a></li>
               <li><a href="/#about" className="hover:bg-white/20 px-3 py-2 rounded transition">About</a></li>
               <li><a href="/#contact" className="hover:bg-white/20 px-3 py-2 rounded transition">Contact</a></li>
+              <li><a href="/#reviews" className="hover:bg-white/20 px-3 py-2 rounded transition">Reviews</a></li>
               <li><a href="/#latest" className="hover:bg-white/20 px-3 py-2 rounded transition">Latest</a></li>
             </ul>
             
@@ -56,6 +57,7 @@ export default function Navbar() {
             <li><a href="/#home" onClick={() => setIsMenuOpen(false)} className="block hover:bg-white/20 px-3 py-2 rounded transition">Home</a></li>
             <li><a href="/#about" onClick={() => setIsMenuOpen(false)} className="block hover:bg-white/20 px-3 py-2 rounded transition">About</a></li>
             <li><a href="/#contact" onClick={() => setIsMenuOpen(false)} className="block hover:bg-white/20 px-3 py-2 rounded transition">Contact</a></li>
+            <li><a href="/#reviews" onClick={() => setIsMenuOpen(false)} className="block hover:bg-white/20 px-3 py-2 rounded transition">Reviews</a></li>
             <li><a href="/#latest" onClick={() => setIsMenuOpen(false)} className="block hover:bg-white/20 px-3 py-2 rounded transition">Latest</a></li>
           </ul>
         )}

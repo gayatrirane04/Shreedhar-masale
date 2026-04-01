@@ -2,6 +2,7 @@
 import Navbar from "./components/Navbar";
 import ProductCard from "./components/ProductCard";
 import ReviewSlider from "./components/ReviewSlider";
+import Footer from "./components/Footer";
 import { useState, useEffect } from "react";
 
 export default function Home() {
@@ -182,7 +183,7 @@ export default function Home() {
               </button>
             </div>
             
-            <div id="about-content" className="marathi text-gray-900 space-y-4 leading-relaxed text-xl sm:text-2xl relative z-10 font-semibold" style={{fontFamily: 'var(--font-tiro)'}}>
+            <div id="about-content" className="marathi text-gray-900 space-y-4 leading-relaxed text-base sm:text-lg relative z-10 font-medium" style={{fontFamily: 'Georgia, serif'}}>
               <div className="marathi-text max-h-96 overflow-y-auto pr-2">
                 <p>तळकोकणातील एका छोट्याशा गावात…</p>
                 <p>मातीच्या घरातल्या चुलीवर शिजणाऱ्या स्वयंपाकाचा दरवळ संपूर्ण अंगणात पसरायचा.</p>
@@ -471,9 +472,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer className="bg-gradient-to-r from-amber-900 via-orange-900 to-red-900 text-white text-center py-4 sm:py-6 mt-8">
-        <p className="text-sm sm:text-base">&copy; 2026 Gayatri Rane. All rights reserved.</p>
-      </footer>
+      <Footer />
     </div>
   );
 }
