@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCart } from "../context/CartContext";
 import Navbar from "../components/Navbar";
@@ -20,10 +20,18 @@ export default function ProductDetail() {
   };
 
   const variants = productVariants[product.title] || productVariants.default;
+  const details = productDetails[product.title];
+
   const [selectedVariant, setSelectedVariant] = useState(variants[0]);
   const [quantity, setQuantity] = useState(1);
   const [readMore, setReadMore] = useState(false);
-  const details = productDetails[product.title];
+
+  useEffect(() => {
+    const v = productVariants[product.title] || productVariants.default;
+    setSelectedVariant(v[0]);
+    setQuantity(1);
+    setReadMore(false);
+  }, [product.title]);
 
   const handleAddToCart = () => {
     addToCart({
@@ -51,11 +59,6 @@ export default function ProductDetail() {
           <div>
             <h1 className="text-3xl font-bold text-gray-800 mb-2">{product.title}</h1>
             <p className="text-gray-700 mb-6">{product.description}</p>
-            
-            <div className="flex items-center gap-3 mb-6 p-3 bg-orange-50 rounded-lg border border-orange-100">
-              <span className="text-sm text-gray-600 font-medium">Returns & Refunds:</span>
-              <a href="/return-refund-policy" className="text-orange-600 text-sm font-semibold hover:underline">📄 View Refund & Return Policy</a>
-            </div>
             
             <div className="mb-6">
               <h3 className="font-semibold text-gray-800 mb-2">Select Variant:</h3>
@@ -137,6 +140,11 @@ export default function ProductDetail() {
                   {readMore ? "Show Less ▲" : "Read More ▼"}
                 </button>
               </div>
+            </div>
+
+            <div className="flex items-center gap-3 p-3 bg-orange-50 rounded-lg border border-orange-100">
+              <span className="text-sm text-gray-600 font-medium">Returns & Refunds:</span>
+              <a href="/return-refund-policy" className="text-orange-600 text-sm font-semibold hover:underline">📄 View Refund & Return Policy</a>
             </div>
           </div>
         )}

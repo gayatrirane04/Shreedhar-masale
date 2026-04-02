@@ -9,13 +9,11 @@ export default function Cart() {
   const router = useRouter();
   const { cart, removeFromCart, updateQuantity, totalAmount, clearCart } = useCart();
   const invoiceRef = useRef<HTMLDivElement>(null);
-  const [invoiceReady, setInvoiceReady] = useState(false);
   const [orderId] = useState(`SM${Date.now().toString().slice(-8)}`);
   const [orderDate] = useState(new Date().toLocaleDateString('en-IN'));
 
-  const generateAndDownloadInvoice = async (): Promise<string | null> => {
-    if (!invoiceRef.current) return null;
-    setInvoiceReady(true);
+  const generateAndDownloadInvoice = async (): Promise<void> => {
+    if (!invoiceRef.current) return;
     await new Promise(r => setTimeout(r, 100));
     const canvas = await html2canvas(invoiceRef.current, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
     const imgData = canvas.toDataURL('image/png');
@@ -23,7 +21,6 @@ export default function Cart() {
     link.download = `Shreedhar-Masale-Invoice-${orderId}.png`;
     link.href = imgData;
     link.click();
-    return imgData;
   };
 
   const handleCheckout = async () => {
@@ -49,6 +46,35 @@ export default function Cart() {
       `_Shreedhar Masale - The Authentic taste of Konkan_`;
 
     window.open(`https://wa.me/919422024902?text=${message}`, '_blank');
+    clearCart();
+  };
+
+  const handleEmailOrder = async () => {
+    await generateAndDownloadInvoice();
+
+    const itemLines = cart.map(item =>
+      `${item.name} (${item.variant}) x${item.quantity} = ₹${item.price * item.quantity}`
+    ).join('%0A');
+
+    const subject = `New Order - Shreedhar Masale | Order ID: ${orderId}`;
+    const body =
+      `Hi Shreedhar Masale Team,%0A%0A` +
+      `I would like to place the following order:%0A%0A` +
+      `ORDER DETAILS%0A` +
+      `--------------%0A` +
+      `Order ID: ${orderId}%0A` +
+      `Date: ${orderDate}%0A%0A` +
+      `ITEMS ORDERED%0A` +
+      `--------------%0A` +
+      `${itemLines}%0A%0A` +
+      `--------------%0A` +
+      `Total Amount: ₹${totalAmount}%0A` +
+      `--------------%0A%0A` +
+      `Note: Invoice image has been downloaded to my device. I will attach it to this email for verification.%0A%0A` +
+      `Please confirm my order and share payment details.%0A%0A` +
+      `Thank you!`;
+
+    window.location.href = `mailto:sales.shreedharmasale@gmail.com?subject=${encodeURIComponent(`New Order - Shreedhar Masale | Order ID: ${orderId}`)}&body=${body}`;
     clearCart();
   };
 
@@ -152,16 +178,16 @@ export default function Cart() {
                 </svg>
                 Order via WhatsApp
               </button>
-              <p className="text-xs text-gray-500 text-center mb-3">📎 Invoice image will be downloaded automatically. Please attach it in the WhatsApp chat.</p>
-              <a
-                href={`mailto:sales.shreedharmasale@gmail.com?subject=New Order - Shreedhar Masale&body=Hi, I want to place an order:%0A%0A${cart.map(item => `${item.name} (${item.variant}) x${item.quantity} = ₹${item.price * item.quantity}`).join('%0A')}%0A%0ATotal: ₹${totalAmount}`}
+              <p className="text-xs text-gray-500 text-center mb-3">📎 Invoice image will be downloaded automatically. Please attach it in the WhatsApp chat or Email.</p>
+              <button
+                onClick={handleEmailOrder}
                 className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-lg font-semibold hover:scale-105 transition flex items-center justify-center gap-2"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
                 Order via Email
-              </a>
+              </button>
             </div>
           </>
         )}
