@@ -2,15 +2,20 @@
 import { useRouter } from "next/navigation";
 import { useCart } from "../context/CartContext";
 import Navbar from "../components/Navbar";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import html2canvas from "html2canvas";
 
 export default function Cart() {
   const router = useRouter();
   const { cart, removeFromCart, updateQuantity, totalAmount, clearCart } = useCart();
   const invoiceRef = useRef<HTMLDivElement>(null);
-  const [orderId] = useState(`SM${Date.now().toString().slice(-8)}`);
-  const [orderDate] = useState(new Date().toLocaleDateString('en-IN'));
+  const [orderId, setOrderId] = useState('');
+  const [orderDate, setOrderDate] = useState('');
+
+  useEffect(() => {
+    setOrderId(`SM${Date.now().toString().slice(-8)}`);
+    setOrderDate(new Date().toLocaleDateString('en-IN'));
+  }, []);
 
   const generateAndDownloadInvoice = async (): Promise<void> => {
     if (!invoiceRef.current) return;
@@ -20,7 +25,9 @@ export default function Cart() {
     const link = document.createElement('a');
     link.download = `Shreedhar-Masale-Invoice-${orderId}.png`;
     link.href = imgData;
+    document.body.appendChild(link);
     link.click();
+    document.body.removeChild(link);
   };
 
   const handleCheckout = async () => {
@@ -53,29 +60,30 @@ export default function Cart() {
     await generateAndDownloadInvoice();
 
     const itemLines = cart.map(item =>
-      `${item.name} (${item.variant}) x${item.quantity} = ₹${item.price * item.quantity}`
-    ).join('%0A');
+      `${item.name} (${item.variant}) x${item.quantity} = \u20b9${item.price * item.quantity}`
+    ).join('\n');
 
-    const subject = `New Order - Shreedhar Masale | Order ID: ${orderId}`;
-    const body =
-      `Hi Shreedhar Masale Team,%0A%0A` +
-      `I would like to place the following order:%0A%0A` +
-      `ORDER DETAILS%0A` +
-      `--------------%0A` +
-      `Order ID: ${orderId}%0A` +
-      `Date: ${orderDate}%0A%0A` +
-      `ITEMS ORDERED%0A` +
-      `--------------%0A` +
-      `${itemLines}%0A%0A` +
-      `--------------%0A` +
-      `Total Amount: ₹${totalAmount}%0A` +
-      `--------------%0A%0A` +
-      `Note: Invoice image has been downloaded to my device. I will attach it to this email for verification.%0A%0A` +
-      `Please confirm my order and share payment details.%0A%0A` +
-      `Thank you!`;
+    const subject = encodeURIComponent(`New Order - Shreedhar Masale | Order ID: ${orderId}`);
+    const body = encodeURIComponent(
+      `Hi Shreedhar Masale Team,\n\n` +
+      `I would like to place the following order:\n\n` +
+      `ORDER DETAILS\n` +
+      `---------------------------\n` +
+      `Order ID: ${orderId}\n` +
+      `Date: ${orderDate}\n\n` +
+      `ITEMS ORDERED\n` +
+      `---------------------------\n` +
+      `${itemLines}\n\n` +
+      `---------------------------\n` +
+      `Total Amount: \u20b9${totalAmount}\n` +
+      `---------------------------\n\n` +
+      `Note: Invoice image has been downloaded. I will attach it to this email.\n\n` +
+      `Please confirm my order and share payment details.\n\n` +
+      `Thank you!`
+    );
 
-    window.location.href = `mailto:sales.shreedharmasale@gmail.com?subject=${encodeURIComponent(`New Order - Shreedhar Masale | Order ID: ${orderId}`)}&body=${body}`;
-    clearCart();
+    window.open(`https://mail.google.com/mail/?view=cm&to=sales.shreedharmasale@gmail.com&su=${subject}&body=${body}`, '_blank');
+    setTimeout(() => clearCart(), 1500);
   };
 
   return (
@@ -123,10 +131,11 @@ export default function Cart() {
           </table>
           <div style={{ textAlign: 'center', borderTop: '2px solid #ddd', paddingTop: '20px', fontSize: '13px', color: '#111111' }}>
             <p style={{ margin: '4px 0' }}>Thank you for your order!</p>
-            <p style={{ margin: '4px 0' }}>This is a system-generated invoice. Please attach this image when sending your order on WhatsApp.</p>
+            <p style={{ margin: '4px 0' }}>This is a system-generated invoice. Please attach this image when sending your order.</p>
           </div>
         </div>
       </div>
+
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-3xl font-bold text-gray-800">Shopping Cart</h1>
