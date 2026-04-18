@@ -82,7 +82,14 @@ export default function Cart() {
       `Thank you!`
     );
 
-    window.open(`https://mail.google.com/mail/?view=cm&to=sales.shreedharmasale@gmail.com&su=${subject}&body=${body}`, '_blank');
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+    if (isMobile) {
+      window.location.href = `mailto:sales.shreedharmasale@gmail.com?subject=${subject}&body=${body}`;
+    } else {
+      window.open(`https://mail.google.com/mail/?view=cm&to=sales.shreedharmasale@gmail.com&su=${subject}&body=${body}`, '_blank');
+    }
+
     setTimeout(() => clearCart(), 1500);
   };
 
