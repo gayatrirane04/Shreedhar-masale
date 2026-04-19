@@ -85,7 +85,7 @@ export default function Footer() {
         {/* Bottom Bar */}
         <div className="border-t border-amber-700 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-amber-200 text-sm">
-            © 2026 Gayatri Rane. All rights reserved.
+            © 2026 Shreedhar Masale. All rights reserved.
           </p>
         </div>
       </div>

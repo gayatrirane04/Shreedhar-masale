@@ -40,10 +40,10 @@ export default function Home() {
           <img src="/logo.png" alt="Shreedhar Masale" className="absolute inset-0 w-full h-full object-cover opacity-20" />
           <div className="absolute inset-0 bg-gradient-to-br from-orange-100/80 via-amber-50/80 to-red-100/80"></div>
           <div className="relative w-full h-full flex items-center justify-center z-20">
-            <div className="text-center px-4">
-              <img src="/logo.png" alt="Shreedhar Masale" className="w-64 h-64 mx-auto mb-8 object-contain drop-shadow-2xl" />
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-orange-600 mb-4">Shreedhar Masale</h1>
-              <p className="text-lg sm:text-xl md:text-2xl text-gray-700 mb-8">The Authentic taste of Konkan</p>
+            <div className="text-center px-4 flex flex-col items-center justify-center">
+              <img src="/logo.png" alt="Shreedhar Masale" className="w-40 h-40 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-80 lg:h-80 mx-auto mb-2 object-contain mix-blend-multiply" />
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-orange-600 mb-1 sm:mb-2">Shreedhar Masale</h1>
+              <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-700 mb-3 sm:mb-4">The Authentic taste of Konkan</p>
               <a href="#products" className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-8 py-3 rounded-full text-lg font-semibold hover:scale-105 transition inline-block">Explore Products</a>
             </div>
           </div>

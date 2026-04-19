@@ -33,6 +33,8 @@ export default function ProductDetail() {
     setReadMore(false);
   }, [product.title]);
 
+  const [added, setAdded] = useState(false);
+
   const handleAddToCart = () => {
     addToCart({
       id: `${product.title}-${selectedVariant.id}`,
@@ -42,7 +44,8 @@ export default function ProductDetail() {
       quantity,
       image: product.image
     });
-    alert("Added to cart!");
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
   };
 
   return (
@@ -91,8 +94,8 @@ export default function ProductDetail() {
             </div>
 
             <div className="flex gap-4">
-              <button onClick={handleAddToCart} className="flex-1 bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-lg font-semibold hover:scale-105 transition">
-                Add to Cart
+              <button onClick={handleAddToCart} className={`flex-1 py-3 rounded-lg font-semibold transition hover:scale-105 text-white ${ added ? 'bg-green-500' : 'bg-gradient-to-r from-orange-500 to-red-500' }`}>
+                {added ? '✓ Added to Cart!' : 'Add to Cart'}
               </button>
               <button onClick={() => router.push("/cart")} className="flex-1 bg-green-600 text-white py-3 rounded-lg font-semibold hover:bg-green-700 transition">
                 View Cart
