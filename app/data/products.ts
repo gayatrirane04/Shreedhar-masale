@@ -19,14 +19,13 @@ export interface ProductDetail {
 }
 
 export const allProducts: Product[] = [
-  { title: "Malvani Bhajka Masala", price: "₹266", originalPrice: "₹345", discount: "23%", image: "kala vatna.jpg", description: "Authentic Malvani blend with sun-dried spices for traditional coastal curries." },
-  { title: "Malvani Macchi Masala", price: "₹227", originalPrice: "₹302", discount: "25%", image: "fish.jpg", description: "Coastal spice mix with organic kokum for authentic Konkani fish preparations." },
-  { title: "Special Malvani Chicken Masala", price: "₹319", originalPrice: "₹399", discount: "20%", image: "chicken.jpg", description: "Hand-ground spices with Byadgi chillies for rich, aromatic chicken dishes." },
-  { title: "Pavbhaji Masala", price: "₹274", originalPrice: "₹356", discount: "23%", image: "Pav Bhaji Food.jpg", description: "Mumbai street-style blend with roasted cumin for authentic pav bhaji flavor." },
-  { title: "Kulith Pith", price: "₹127", originalPrice: "₹159", discount: "20%", image: "Pithla.jpg", description: "Stone-ground horse gram flour, protein-rich and naturally gluten-free." },
-  { title: "Vade Pith", price: "₹154", originalPrice: "₹220", discount: "30%", image: "vade.jpg", description: "Pure urad dal flour for soft, fluffy vadas - traditionally stone-milled." },
-  // { title: "Gavathi Halad", price: "₹137", originalPrice: "₹182", discount: "25%", image: "halad.jpg", description: "Organic farm-fresh turmeric with high curcumin, naturally sun-dried." },
-  { title: "Kohala Sandage", price: "₹396", originalPrice: "₹495", discount: "20%", image: "Sandge-Featured.jpg", description: "Handmade sun-dried lentil wafers, preservative-free traditional Konkani snack." },
+  { title: "Malvani Bhajka Masala", price: "₹266", originalPrice: "₹345", discount: "23%", image: "/images/products/malvani-bhajka-masala/malvani bhaj1.jpeg", description: "Authentic Malvani blend with sun-dried spices for traditional coastal curries." },
+  { title: "Malvani Macchi Masala", price: "₹227", originalPrice: "₹302", discount: "25%", image: "/images/products/malvani-macchi-masala/malvani fish1.jpeg", description: "Coastal spice mix with organic kokum for authentic Konkani fish preparations." },
+  { title: "Special Malvani Chicken Masala", price: "₹319", originalPrice: "₹399", discount: "20%", image: "/images/products/malvani-chicken-masala/malvani chick1.jpeg", description: "Hand-ground spices with Byadgi chillies for rich, aromatic chicken dishes." },
+  { title: "Pavbhaji Masala", price: "₹274", originalPrice: "₹356", discount: "23%", image: "/images/products/pavbhaji-masala/pavbhaji1.jpeg", description: "Mumbai street-style blend with roasted cumin for authentic pav bhaji flavor." },
+  { title: "Kulith Pith", price: "₹127", originalPrice: "₹159", discount: "20%", image: "/images/products/kulith-pith/kulid1.jpeg", description: "Stone-ground horse gram flour, protein-rich and naturally gluten-free." },
+  { title: "Vade Pith", price: "₹154", originalPrice: "₹220", discount: "30%", image: "/images/products/vade-pith/vade1.jpeg", description: "Pure urad dal flour for soft, fluffy vadas - traditionally stone-milled." },
+  { title: "Kohala Sandage", price: "₹396", originalPrice: "₹495", discount: "20%", image: "/images/products/kohala-sandage/kohala1.jpeg", description: "Handmade sun-dried lentil wafers, preservative-free traditional Konkani snack." },
 ];
 
 export const productVariants: { [key: string]: Variant[] } = {
@@ -73,6 +72,51 @@ export const productVariants: { [key: string]: Variant[] } = {
     { id: "250g", label: "250g", price: 150 },
     { id: "500g", label: "500g", price: 280 },
     { id: "1kg", label: "1kg", price: 520 },
+  ],
+};
+
+export const productImages: { [key: string]: string[] } = {
+  "Malvani Bhajka Masala": [
+    "/images/products/malvani-bhajka-masala/malvani bhaj1.jpeg",
+    "/images/products/malvani-bhajka-masala/malvani bhaj2.jpeg",
+    "/images/products/malvani-bhajka-masala/malvani bhaj3.jpeg",
+    "/images/products/malvani-bhajka-masala/malvani bhaj4.jpeg",
+    "/images/products/malvani-bhajka-masala/malvani bhaj5.jpeg",
+  ],
+  "Malvani Macchi Masala": [
+    "/images/products/malvani-macchi-masala/malvani fish1.jpeg",
+    "/images/products/malvani-macchi-masala/malvani fish2.jpeg",
+    "/images/products/malvani-macchi-masala/malvani fish3.jpeg",
+    "/images/products/malvani-macchi-masala/malvani fish4.jpeg",
+    "/images/products/malvani-macchi-masala/malvani fish5.jpeg",
+  ],
+  "Special Malvani Chicken Masala": [
+    "/images/products/malvani-chicken-masala/malvani chick1.jpeg",
+    "/images/products/malvani-chicken-masala/malvani chick2.jpeg",
+    "/images/products/malvani-chicken-masala/malvani chick3.jpeg",
+    "/images/products/malvani-chicken-masala/malvani chick4.jpeg",
+    "/images/products/malvani-chicken-masala/malvani chick5.jpeg",
+  ],
+  "Pavbhaji Masala": [
+    "/images/products/pavbhaji-masala/pavbhaji1.jpeg",
+    "/images/products/pavbhaji-masala/pavbhaji2.jpeg",
+    "/images/products/pavbhaji-masala/pavbhaji3.jpeg",
+    "/images/products/pavbhaji-masala/pavbhaji4.jpeg",
+  ],
+  "Kulith Pith": [
+    "/images/products/kulith-pith/kulid1.jpeg",
+    "/images/products/kulith-pith/kulid2.jpeg",
+    "/images/products/kulith-pith/kulid3.jpeg",
+  ],
+  "Vade Pith": [
+    "/images/products/vade-pith/vade1.jpeg",
+    "/images/products/vade-pith/vade2.jpeg",
+    "/images/products/vade-pith/vade3.jpeg",
+  ],
+  "Kohala Sandage": [
+    "/images/products/kohala-sandage/kohala1.jpeg",
+    "/images/products/kohala-sandage/kohala2.jpeg",
+    "/images/products/kohala-sandage/kohala3.jpeg",
   ],
 };
 

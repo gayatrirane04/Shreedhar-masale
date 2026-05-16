@@ -3,7 +3,6 @@ import { useRouter } from "next/navigation";
 import { useCart } from "../context/CartContext";
 import Navbar from "../components/Navbar";
 import { useRef, useState, useEffect } from "react";
-import html2canvas from "html2canvas";
 
 export default function Cart() {
   const router = useRouter();
@@ -11,14 +10,24 @@ export default function Cart() {
   const invoiceRef = useRef<HTMLDivElement>(null);
   const [orderId, setOrderId] = useState('');
   const [orderDate, setOrderDate] = useState('');
+  const [addressError, setAddressError] = useState(false);
+
+  const [address, setAddress] = useState({
+    name: '', mobile: '', houseNo: '', area: '',
+    city: '', taluka: '', district: '', state: '', pincode: ''
+  });
 
   useEffect(() => {
     setOrderId(`SM${Date.now().toString().slice(-8)}`);
     setOrderDate(new Date().toLocaleDateString('en-IN'));
   }, []);
 
+  const isAddressValid = () =>
+    Object.values(address).every(v => v.trim() !== '');
+
   const generateAndDownloadInvoice = async (): Promise<void> => {
     if (!invoiceRef.current) return;
+    const html2canvas = (await import('html2canvas')).default;
     await new Promise(r => setTimeout(r, 100));
     const canvas = await html2canvas(invoiceRef.current, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
     const imgData = canvas.toDataURL('image/png');
@@ -31,6 +40,8 @@ export default function Cart() {
   };
 
   const handleCheckout = async () => {
+    if (!isAddressValid()) { setAddressError(true); return; }
+    setAddressError(false);
     await generateAndDownloadInvoice();
 
     const itemLines = cart.map(item =>
@@ -48,6 +59,18 @@ export default function Cart() {
       `${itemLines}%0A%0A` +
       `--------------------------------%0A` +
       `*Total Amount: ₹${totalAmount}*%0A` +
+      `--------------------------------%0A%0A` +
+      `*DELIVERY ADDRESS*%0A` +
+      `--------------------------------%0A` +
+      `*Full Name:* ${address.name}%0A` +
+      `*Mobile:* ${address.mobile}%0A` +
+      `*House No / Building:* ${address.houseNo}%0A` +
+      `*Area / Landmark:* ${address.area}%0A` +
+      `*City / Village:* ${address.city}%0A` +
+      `*Taluka:* ${address.taluka}%0A` +
+      `*District:* ${address.district}%0A` +
+      `*State:* ${address.state}%0A` +
+      `*Pin Code:* ${address.pincode}%0A` +
       `--------------------------------%0A` +
       `📎 _Invoice image has been downloaded. Please attach it to this chat for verification._%0A` +
       `_Shreedhar Masale - The Authentic taste of Konkan_`;
@@ -57,16 +80,17 @@ export default function Cart() {
   };
 
   const handleEmailOrder = async () => {
+    if (!isAddressValid()) { setAddressError(true); return; }
+    setAddressError(false);
     await generateAndDownloadInvoice();
 
     const itemLines = cart.map(item =>
-      `${item.name} (${item.variant}) x${item.quantity} = \u20b9${item.price * item.quantity}`
+      `${item.name} (${item.variant}) x${item.quantity} = ₹${item.price * item.quantity}`
     ).join('\n');
 
     const subject = encodeURIComponent(`New Order - Shreedhar Masale | Order ID: ${orderId}`);
     const body = encodeURIComponent(
       `Hi Shreedhar Masale Team,\n\n` +
-      `I would like to place the following order:\n\n` +
       `ORDER DETAILS\n` +
       `---------------------------\n` +
       `Order ID: ${orderId}\n` +
@@ -75,10 +99,21 @@ export default function Cart() {
       `---------------------------\n` +
       `${itemLines}\n\n` +
       `---------------------------\n` +
-      `Total Amount: \u20b9${totalAmount}\n` +
+      `Total Amount: ₹${totalAmount}\n` +
+      `---------------------------\n\n` +
+      `DELIVERY ADDRESS\n` +
+      `---------------------------\n` +
+      `Full Name: ${address.name}\n` +
+      `Mobile: ${address.mobile}\n` +
+      `House No / Building: ${address.houseNo}\n` +
+      `Area / Landmark: ${address.area}\n` +
+      `City / Village: ${address.city}\n` +
+      `Taluka: ${address.taluka}\n` +
+      `District: ${address.district}\n` +
+      `State: ${address.state}\n` +
+      `Pin Code: ${address.pincode}\n` +
       `---------------------------\n\n` +
       `Note: Invoice image has been downloaded. I will attach it to this email.\n\n` +
-      `Please confirm my order and share payment details.\n\n` +
       `Thank you!`
     );
 
@@ -96,11 +131,13 @@ export default function Cart() {
     setTimeout(() => clearCart(), 1500);
   };
 
+  const inputClass = "w-full border border-gray-200 rounded-lg px-3 py-2 text-sm text-gray-800 focus:outline-none focus:border-orange-400";
+
   return (
     <div className="bg-gradient-to-b from-orange-50 to-amber-50 min-h-screen">
       <Navbar />
 
-      {/* Hidden Invoice Template for html2canvas */}
+      {/* Hidden Invoice Template */}
       <div className="fixed -left-[9999px] top-0">
         <div ref={invoiceRef} style={{ width: '700px', backgroundColor: '#ffffff', padding: '40px', fontFamily: 'Arial, sans-serif', color: '#111111' }}>
           <div style={{ textAlign: 'center', borderBottom: '3px solid #ea580c', paddingBottom: '20px', marginBottom: '30px' }}>
@@ -139,6 +176,16 @@ export default function Cart() {
               </tr>
             </tbody>
           </table>
+          <div style={{ marginBottom: '20px', borderTop: '2px solid #f97316', paddingTop: '16px' }}>
+            <h3 style={{ fontSize: '16px', marginBottom: '8px', color: '#111111' }}>Delivery Address</h3>
+            <p style={{ margin: '3px 0', fontSize: '13px', color: '#111111' }}><strong>Name:</strong> {address.name}</p>
+            <p style={{ margin: '3px 0', fontSize: '13px', color: '#111111' }}><strong>Mobile:</strong> {address.mobile}</p>
+            <p style={{ margin: '3px 0', fontSize: '13px', color: '#111111' }}><strong>House No / Building:</strong> {address.houseNo}</p>
+            <p style={{ margin: '3px 0', fontSize: '13px', color: '#111111' }}><strong>Area / Landmark:</strong> {address.area}</p>
+            <p style={{ margin: '3px 0', fontSize: '13px', color: '#111111' }}><strong>City / Village:</strong> {address.city}, <strong>Taluka:</strong> {address.taluka}</p>
+            <p style={{ margin: '3px 0', fontSize: '13px', color: '#111111' }}><strong>District:</strong> {address.district}, <strong>State:</strong> {address.state}</p>
+            <p style={{ margin: '3px 0', fontSize: '13px', color: '#111111' }}><strong>Pin Code:</strong> {address.pincode}</p>
+          </div>
           <div style={{ textAlign: 'center', borderTop: '2px solid #ddd', paddingTop: '20px', fontSize: '13px', color: '#111111' }}>
             <p style={{ margin: '4px 0' }}>Thank you for your order!</p>
             <p style={{ margin: '4px 0' }}>This is a system-generated invoice. Please attach this image when sending your order.</p>
@@ -153,7 +200,7 @@ export default function Cart() {
             &larr; Continue Shopping
           </button>
         </div>
-        
+
         {cart.length === 0 ? (
           <div className="text-center py-12">
             <p className="text-gray-800 mb-4">Your cart is empty</p>
@@ -182,7 +229,53 @@ export default function Cart() {
               ))}
             </div>
 
-            <div className="bg-gradient-to-br from-amber-50 to-orange-100 backdrop-blur-sm p-6 rounded-lg shadow-lg border border-orange-200">
+            {/* Delivery Address Form */}
+            <div className="bg-white rounded-lg shadow p-6 mb-6 border border-orange-100">
+              <h2 className="text-lg font-bold text-gray-800 mb-4">📦 Delivery Address</h2>
+              {addressError && (
+                <p className="text-red-500 text-sm mb-3 font-medium">Please fill in all address fields before placing the order.</p>
+              )}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label className="text-xs font-semibold text-gray-600 mb-1 block">Full Name *</label>
+                  <input className={inputClass} placeholder="e.g. Omkar " value={address.name} onChange={e => setAddress({...address, name: e.target.value})} />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-gray-600 mb-1 block">Mobile Number *</label>
+                  <input className={inputClass} placeholder="e.g. 987xxxxxxx" value={address.mobile} onChange={e => setAddress({...address, mobile: e.target.value})} />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-gray-600 mb-1 block">House No / Building *</label>
+                  <input className={inputClass} placeholder="e.g. 12, Shanti Niwas" value={address.houseNo} onChange={e => setAddress({...address, houseNo: e.target.value})} />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-gray-600 mb-1 block">Area / Landmark *</label>
+                  <input className={inputClass} placeholder="e.g. Near Bus Stand" value={address.area} onChange={e => setAddress({...address, area: e.target.value})} />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-gray-600 mb-1 block">City / Village *</label>
+                  <input className={inputClass} placeholder="e.g. Kudal" value={address.city} onChange={e => setAddress({...address, city: e.target.value})} />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-gray-600 mb-1 block">Taluka *</label>
+                  <input className={inputClass} placeholder="e.g. Kudal" value={address.taluka} onChange={e => setAddress({...address, taluka: e.target.value})} />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-gray-600 mb-1 block">District *</label>
+                  <input className={inputClass} placeholder="e.g. Sindhudurg" value={address.district} onChange={e => setAddress({...address, district: e.target.value})} />
+                </div>
+                <div>
+                  <label className="text-xs font-semibold text-gray-600 mb-1 block">State *</label>
+                  <input className={inputClass} placeholder="e.g. Maharashtra" value={address.state} onChange={e => setAddress({...address, state: e.target.value})} />
+                </div>
+                <div className="sm:col-span-2">
+                  <label className="text-xs font-semibold text-gray-600 mb-1 block">Pin Code *</label>
+                  <input className={inputClass} placeholder="e.g. 416628" value={address.pincode} onChange={e => setAddress({...address, pincode: e.target.value})} />
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-br from-amber-50 to-orange-100 p-6 rounded-lg shadow-lg border border-orange-200">
               <div className="flex justify-between text-xl font-bold mb-4 text-gray-800">
                 <span>Total:</span>
                 <span className="text-orange-600">₹{totalAmount}</span>
@@ -198,10 +291,7 @@ export default function Cart() {
                 Order via WhatsApp
               </button>
               <p className="text-xs text-gray-500 text-center mb-3">📎 Invoice image will be downloaded automatically. Please attach it in the WhatsApp chat or Email.</p>
-              <button
-                onClick={handleEmailOrder}
-                className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-lg font-semibold hover:scale-105 transition flex items-center justify-center gap-2"
-              >
+              <button onClick={handleEmailOrder} className="w-full bg-gradient-to-r from-orange-500 to-red-500 text-white py-3 rounded-lg font-semibold hover:scale-105 transition flex items-center justify-center gap-2">
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>

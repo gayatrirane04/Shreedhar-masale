@@ -5,7 +5,7 @@ import { useCart } from "../context/CartContext";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import Link from "next/link";
-import { allProducts, productVariants, productDetails } from "../data/products";
+import { allProducts, productVariants, productDetails, productImages } from "../data/products";
 
 export default function ProductDetail() {
   const router = useRouter();
@@ -21,19 +21,21 @@ export default function ProductDetail() {
 
   const variants = productVariants[product.title] || productVariants.default;
   const details = productDetails[product.title];
+  const images = productImages[product.title] || [product.image];
 
   const [selectedVariant, setSelectedVariant] = useState(variants[0]);
   const [quantity, setQuantity] = useState(1);
   const [readMore, setReadMore] = useState(false);
+  const [activeImage, setActiveImage] = useState(0);
+  const [added, setAdded] = useState(false);
 
   useEffect(() => {
     const v = productVariants[product.title] || productVariants.default;
     setSelectedVariant(v[0]);
     setQuantity(1);
     setReadMore(false);
+    setActiveImage(0);
   }, [product.title]);
-
-  const [added, setAdded] = useState(false);
 
   const handleAddToCart = () => {
     addToCart({
@@ -55,8 +57,41 @@ export default function ProductDetail() {
         <button onClick={() => router.back()} className="text-orange-600 mb-4 font-semibold">&larr; Back</button>
         
         <div className="grid md:grid-cols-2 gap-8 items-start">
-          <div className="bg-white p-4 rounded-xl shadow-lg flex items-center justify-center">
-            <img src={product.image} alt="Product" className="w-full h-auto max-h-96 object-contain rounded-xl" />
+          <div className="flex flex-col gap-3">
+            <div className="relative bg-white p-4 rounded-xl shadow-lg flex items-center justify-center">
+              <img src={images[activeImage]} alt="Product" className="w-full h-auto max-h-96 object-contain rounded-xl" />
+              {images.length > 1 && (
+                <>
+                  <button
+                    onClick={() => setActiveImage((activeImage - 1 + images.length) % images.length)}
+                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white shadow-md rounded-full w-8 h-8 flex items-center justify-center text-gray-700 font-bold transition"
+                  >
+                    &#8249;
+                  </button>
+                  <button
+                    onClick={() => setActiveImage((activeImage + 1) % images.length)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white shadow-md rounded-full w-8 h-8 flex items-center justify-center text-gray-700 font-bold transition"
+                  >
+                    &#8250;
+                  </button>
+                </>
+              )}
+            </div>
+            {images.length > 1 && (
+              <div className="flex gap-2 overflow-x-auto pb-1">
+                {images.map((img, i) => (
+                  <div
+                    key={i}
+                    onClick={() => setActiveImage(i)}
+                    className={`min-w-[64px] h-16 rounded-lg overflow-hidden cursor-pointer border-2 transition ${
+                      activeImage === i ? 'border-orange-500' : 'border-gray-200'
+                    }`}
+                  >
+                    <img src={img} alt={`View ${i + 1}`} className="w-full h-full object-cover" />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
           
           <div>

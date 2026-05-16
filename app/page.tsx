@@ -9,9 +9,9 @@ export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [aboutSlide, setAboutSlide] = useState(0);
   const aboutImages = [
-    'about1.jpg', 'about2.jpg', 'about3.jpg', 'about4.jpg',
-    'about5.jpg', 'about6.jpg', 'about7.jpg', 'about8.jpg',
-    'about9.jpg', 'about10.jpg', 'about11.jpg', 'about12.jpg'
+    'images/about/about1.jpg', 'images/about/about2.jpg', 'images/about/about3.jpg', 'images/about/about4.jpg',
+    'images/about/about5.jpg', 'images/about/about6.jpg', 'images/about/about7.jpg', 'images/about/about8.jpg',
+    'images/about/about9.jpg', 'images/about/about10.jpg', 'images/about/about11.jpg', 'images/about/about12.jpg'
   ];
 
   useEffect(() => {
@@ -86,7 +86,7 @@ export default function Home() {
             price="₹266"
             originalPrice="₹345"
             discount="23%"
-            image="kala vatna.jpg"
+            image="/images/products/malvani-bhajka-masala/malvani bhaj1.jpeg"
             description="Authentic Malvani blend with sun-dried spices for traditional coastal curries."
           />
           <ProductCard 
@@ -94,7 +94,7 @@ export default function Home() {
             price="₹227"
             originalPrice="₹302"
             discount="25%"
-            image="fish.jpg"
+            image="/images/products/malvani-macchi-masala/malvani fish1.jpeg"
             description="Coastal spice mix with organic kokum for authentic Konkani fish preparations."
           />
           <ProductCard 
@@ -102,7 +102,7 @@ export default function Home() {
             price="₹319"
             originalPrice="₹399"
             discount="20%"
-            image="chicken.jpg"
+            image="/images/products/malvani-chicken-masala/malvani chick1.jpeg"
             description="Hand-ground spices with Byadgi chillies for rich, aromatic chicken dishes."
           />
           <ProductCard 
@@ -110,7 +110,7 @@ export default function Home() {
             price="₹274"
             originalPrice="₹356"
             discount="23%"
-            image="Pav Bhaji Food.jpg"
+            image="/images/products/pavbhaji-masala/pavbhaji1.jpeg"
             description="Mumbai street-style blend with roasted cumin for authentic pav bhaji flavor."
           />
           <ProductCard 
@@ -118,7 +118,7 @@ export default function Home() {
             price="₹127"
             originalPrice="₹159"
             discount="20%"
-            image="Pithla.jpg"
+            image="/images/products/kulith-pith/kulid1.jpeg"
             description="Stone-ground horse gram flour, protein-rich and naturally gluten-free."
           />
           <ProductCard 
@@ -126,23 +126,15 @@ export default function Home() {
             price="₹154"
             originalPrice="₹220"
             discount="30%"
-            image="vade.jpg"
+            image="/images/products/vade-pith/vade1.jpeg"
             description="Pure urad dal flour for soft, fluffy vadas - traditionally stone-milled."
           />
-          {/* <ProductCard 
-            title="Gavathi Halad" 
-            price="₹137"
-            originalPrice="₹182"
-            discount="25%"
-            image="halad.jpg"
-            description="Organic farm-fresh turmeric with high curcumin, naturally sun-dried."
-          /> */}
           <ProductCard 
             title="Kohala Sandage" 
             price="₹396"
             originalPrice="₹495"
             discount="20%"
-            image="Sandge-Featured.jpg"
+            image="/images/products/kohala-sandage/kohala1.jpeg"
             description="Handmade sun-dried lentil wafers, preservative-free traditional Konkani snack."
            />
         </div>

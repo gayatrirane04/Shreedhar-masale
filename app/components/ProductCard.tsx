@@ -15,35 +15,40 @@ export default function ProductCard({ title, price, description, originalPrice, 
   
   return (
     <Link href={`/product?data=${productData}`}>
-      <div className="relative overflow-hidden rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all h-72 sm:h-96 cursor-pointer">
-        <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30" />
+      <div className="relative overflow-hidden rounded-xl shadow-xl hover:shadow-2xl hover:scale-105 transition-all cursor-pointer group">
         
-        <div className="absolute top-2 left-2 sm:top-3 sm:left-3 z-20 bg-white rounded-md p-1 sm:p-1.5 shadow-lg">
-          <div className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-green-600 rounded flex items-center justify-center">
-            <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 bg-green-600 rounded-full"></div>
+        {/* Image - fully visible with padding */}
+        <div className="bg-white p-3">
+          <img src={image} alt={title} className="w-full h-64 object-contain rounded-lg" />
+        </div>
+
+        {/* Veg icon - always visible */}
+        <div className="absolute top-2 left-2 z-20 bg-white rounded-md p-1 shadow-lg">
+          <div className="w-5 h-5 border-2 border-green-600 rounded flex items-center justify-center">
+            <div className="w-2 h-2 bg-green-600 rounded-full"></div>
           </div>
         </div>
+
+        {/* Discount badge - always visible */}
+        <div className="absolute top-2 right-2 z-20">
+          <div className="relative w-10 h-10">
+            <img src="/discount.png" alt="discount" className="w-full h-full object-contain" />
+            <span className="absolute inset-0 flex items-center justify-center text-white font-extrabold text-[9px] drop-shadow-2xl leading-none pb-1">{discount}</span>
+          </div>
+        </div>
+
+        {/* Hover overlay with text */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
         
-        <div className="relative h-full flex flex-col justify-between p-3 sm:p-6">
-          <div className="flex justify-end">
-            <div className="relative w-12 h-12 sm:w-16 sm:h-16">
-              <img src="/discount.png" alt="discount" className="w-full h-full object-contain" />
-              <span className="absolute inset-0 flex items-center justify-center text-white font-extrabold text-[10px] sm:text-xs drop-shadow-2xl leading-none pb-1">{discount}</span>
-            </div>
+        <div className="absolute bottom-0 left-0 right-0 p-3 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+          <h3 className="text-sm font-bold text-white mb-1 leading-tight">{title}</h3>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="text-gray-300 line-through text-xs">{originalPrice}</span>
+            <span className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-2 py-0.5 rounded-full text-sm font-bold shadow-md">{price}</span>
           </div>
-          
-          <div>
-            <h3 className="text-base sm:text-xl font-bold text-white mb-1 sm:mb-2 leading-tight">{title}</h3>
-            <p className="text-gray-200 text-xs sm:text-sm mb-2 sm:mb-3 hidden sm:block">{description}</p>
-            <div className="flex items-center gap-2 mb-2 sm:mb-4">
-              <span className="text-gray-300 line-through text-xs sm:text-sm">{originalPrice}</span>
-              <span className="bg-gradient-to-r from-orange-500 to-red-500 text-white px-2 sm:px-4 py-0.5 sm:py-1 rounded-full text-sm sm:text-lg font-bold shadow-md">{price}</span>
-            </div>
-            <button className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-1.5 sm:py-2 px-4 rounded-lg transition text-sm sm:text-base">
-              Buy Now
-            </button>
-          </div>
+          <button className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold py-1.5 px-4 rounded-lg transition text-sm">
+            Buy Now
+          </button>
         </div>
       </div>
     </Link>
