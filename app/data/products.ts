@@ -11,6 +11,7 @@ export interface Variant {
   id: string;
   label: string;
   price: number;
+  mrp: number;
 }
 
 export interface ProductDetail {
@@ -19,59 +20,55 @@ export interface ProductDetail {
 }
 
 export const allProducts: Product[] = [
-  { title: "Malvani Bhajka Masala", price: "₹266", originalPrice: "₹345", discount: "23%", image: "/images/products/malvani-bhajka-masala/malvani bhaj1.jpeg", description: "Authentic Malvani blend with sun-dried spices for traditional coastal curries." },
-  { title: "Malvani Macchi Masala", price: "₹227", originalPrice: "₹302", discount: "25%", image: "/images/products/malvani-macchi-masala/malvani fish1.jpeg", description: "Coastal spice mix with organic kokum for authentic Konkani fish preparations." },
-  { title: "Special Malvani Chicken Masala", price: "₹319", originalPrice: "₹399", discount: "20%", image: "/images/products/malvani-chicken-masala/malvani chick1.jpeg", description: "Hand-ground spices with Byadgi chillies for rich, aromatic chicken dishes." },
-  { title: "Pavbhaji Masala", price: "₹274", originalPrice: "₹356", discount: "23%", image: "/images/products/pavbhaji-masala/pavbhaji1.jpeg", description: "Mumbai street-style blend with roasted cumin for authentic pav bhaji flavor." },
-  { title: "Kulith Pith", price: "₹127", originalPrice: "₹159", discount: "20%", image: "/images/products/kulith-pith/kulid1.jpeg", description: "Stone-ground horse gram flour, protein-rich and naturally gluten-free." },
-  { title: "Vade Pith", price: "₹154", originalPrice: "₹220", discount: "30%", image: "/images/products/vade-pith/vade1.jpeg", description: "Pure urad dal flour for soft, fluffy vadas - traditionally stone-milled." },
-  { title: "Kohala Sandage", price: "₹396", originalPrice: "₹495", discount: "20%", image: "/images/products/kohala-sandage/kohala1.jpeg", description: "Handmade sun-dried lentil wafers, preservative-free traditional Konkani snack." },
+  { title: "Malvani Bhajka Masala", price: "₹248", originalPrice: "₹324", discount: "23%", image: "/images/products/malvani-bhajka-masala/malvani bhaj1.jpeg", description: "Authentic Malvani blend with sun-dried spices for traditional coastal curries." },
+  { title: "Malvani Macchi Masala", price: "₹212", originalPrice: "₹285", discount: "26%", image: "/images/products/malvani-macchi-masala/malvani fish1.jpeg", description: "Coastal spice mix with organic kokum for authentic Konkani fish preparations." },
+  { title: "Special Malvani Chicken Masala", price: "₹290", originalPrice: "₹372", discount: "22%", image: "/images/products/malvani-chicken-masala/malvani chick1.jpeg", description: "Hand-ground spices with Byadgi chillies for rich, aromatic chicken dishes." },
+  { title: "Pavbhaji Masala", price: "₹255", originalPrice: "₹322", discount: "21%", image: "/images/products/pavbhaji-masala/pavbhaji1.jpeg", description: "Mumbai street-style blend with roasted cumin for authentic pav bhaji flavor." },
+  { title: "Kulith Pith", price: "₹144", originalPrice: "₹195", discount: "26%", image: "/images/products/kulith-pith/kulid1.jpeg", description: "Stone-ground horse gram flour, protein-rich and naturally gluten-free." },
+  { title: "Vade Pith", price: "₹110", originalPrice: "₹152", discount: "28%", image: "/images/products/vade-pith/vade1.jpeg", description: "Pure urad dal flour for soft, fluffy vadas - traditionally stone-milled." },
+  { title: "Kohala Sandage", price: "₹160", originalPrice: "₹214", discount: "25%", image: "/images/products/kohala-sandage/kohala1.jpeg", description: "Handmade sun-dried lentil wafers, preservative-free traditional Konkani snack." },
 ];
 
 export const productVariants: { [key: string]: Variant[] } = {
   "Malvani Bhajka Masala": [
-    { id: "250g", label: "250g", price: 266 },
-    { id: "500g", label: "500g", price: 493 },
-    { id: "1kg", label: "1kg", price: 939 },
+    { id: "200g", label: "200g", price: 248, mrp: 324 },
+    { id: "400g", label: "400g", price: 415, mrp: 568 },
+    { id: "800g", label: "800g", price: 750, mrp: 1106 },
   ],
   "Malvani Macchi Masala": [
-    { id: "250g", label: "250g", price: 227 },
-    { id: "500g", label: "500g", price: 416 },
-    { id: "1kg", label: "1kg", price: 787 },
+    { id: "200g", label: "200g", price: 212, mrp: 285 },
+    { id: "400g", label: "400g", price: 344, mrp: 491 },
+    { id: "800g", label: "800g", price: 608, mrp: 952 },
   ],
   "Special Malvani Chicken Masala": [
-    { id: "250g", label: "250g", price: 319 },
-    { id: "500g", label: "500g", price: 599 },
-    { id: "1kg", label: "1kg", price: 1150 },
+    { id: "200g", label: "200g", price: 290, mrp: 372 },
+    { id: "400g", label: "400g", price: 499, mrp: 634 },
+    { id: "800g", label: "800g", price: 919, mrp: 1207 },
   ],
   "Pavbhaji Masala": [
-    { id: "250g", label: "250g", price: 274 },
-    { id: "500g", label: "500g", price: 510 },
-    { id: "1kg", label: "1kg", price: 973 },
+    { id: "200g", label: "200g", price: 255, mrp: 322 },
+    { id: "400g", label: "400g", price: 431, mrp: 544 },
+    { id: "800g", label: "800g", price: 781, mrp: 1058 },
   ],
   "Kulith Pith": [
-    { id: "250g", label: "250g", price: 127 },
-    { id: "500g", label: "500g", price: 238 },
-    { id: "1kg", label: "1kg", price: 444 },
+    { id: "200g", label: "200g", price: 144, mrp: 195 },
+    { id: "400g", label: "400g", price: 208, mrp: 270 },
+    { id: "800g", label: "800g", price: 336, mrp: 440 },
   ],
   "Vade Pith": [
-    { id: "500g", label: "500g", price: 154 },
-    { id: "1kg", label: "1kg", price: 279 },
+    { id: "200g", label: "200g", price: 110, mrp: 152 },
+    { id: "400g", label: "400g", price: 140, mrp: 183 },
+    { id: "800g", label: "800g", price: 200, mrp: 256 },
   ],
-  // "Gavathi Halad": [
-  //   { id: "250g", label: "250g", price: 137 },
-  //   { id: "500g", label: "500g", price: 258 },
-  //   { id: "1kg", label: "1kg", price: 487 },
-  // ],
   "Kohala Sandage": [
-    { id: "250g", label: "250g", price: 396 },
-    { id: "500g", label: "500g", price: 776 },
-    { id: "1kg", label: "1kg", price: 1519 },
+    { id: "100g", label: "100g", price: 160, mrp: 214 },
+    { id: "200g", label: "200g", price: 250, mrp: 328 },
+    { id: "300g", label: "300g", price: 360, mrp: 495 },
   ],
   default: [
-    { id: "250g", label: "250g", price: 150 },
-    { id: "500g", label: "500g", price: 280 },
-    { id: "1kg", label: "1kg", price: 520 },
+    { id: "200g", label: "200g", price: 150, mrp: 200 },
+    { id: "400g", label: "400g", price: 280, mrp: 350 },
+    { id: "800g", label: "800g", price: 520, mrp: 650 },
   ],
 };
 

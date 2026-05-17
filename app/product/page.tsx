@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCart } from "../context/CartContext";
 import Navbar from "../components/Navbar";
@@ -28,6 +28,36 @@ export default function ProductDetail() {
   const [readMore, setReadMore] = useState(false);
   const [activeImage, setActiveImage] = useState(0);
   const [added, setAdded] = useState(false);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const touchStartX = useRef<number | null>(null);
+  const clickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diff = touchStartX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) setActiveImage((prev) => (prev + 1) % images.length);
+      else setActiveImage((prev) => (prev - 1 + images.length) % images.length);
+    }
+    touchStartX.current = null;
+  };
+
+  const handleImageClick = () => {
+    if (clickTimer.current) {
+      clearTimeout(clickTimer.current);
+      clickTimer.current = null;
+      setLightboxOpen(true);
+    } else {
+      clickTimer.current = setTimeout(() => {
+        setActiveImage((prev) => (prev + 1) % images.length);
+        clickTimer.current = null;
+      }, 250);
+    }
+  };
 
   useEffect(() => {
     const v = productVariants[product.title] || productVariants.default;
@@ -35,6 +65,7 @@ export default function ProductDetail() {
     setQuantity(1);
     setReadMore(false);
     setActiveImage(0);
+    setLightboxOpen(false);
   }, [product.title]);
 
   const handleAddToCart = () => {
@@ -58,24 +89,24 @@ export default function ProductDetail() {
         
         <div className="grid md:grid-cols-2 gap-8 items-start">
           <div className="flex flex-col gap-3">
-            <div className="relative bg-white p-4 rounded-xl shadow-lg flex items-center justify-center">
+            <div
+              className="relative bg-white p-4 rounded-xl shadow-lg flex items-center justify-center cursor-pointer"
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+              onClick={handleImageClick}
+            >
               <img src={images[activeImage]} alt="Product" className="w-full h-auto max-h-96 object-contain rounded-xl" />
+              {/* Dot indicators */}
               {images.length > 1 && (
-                <>
-                  <button
-                    onClick={() => setActiveImage((activeImage - 1 + images.length) % images.length)}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white shadow-md rounded-full w-8 h-8 flex items-center justify-center text-gray-700 font-bold transition"
-                  >
-                    &#8249;
-                  </button>
-                  <button
-                    onClick={() => setActiveImage((activeImage + 1) % images.length)}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white shadow-md rounded-full w-8 h-8 flex items-center justify-center text-gray-700 font-bold transition"
-                  >
-                    &#8250;
-                  </button>
-                </>
+                <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1.5">
+                  {images.map((_, i) => (
+                    <div key={i} className={`w-2 h-2 rounded-full transition ${
+                      activeImage === i ? 'bg-orange-500' : 'bg-gray-300'
+                    }`} />
+                  ))}
+                </div>
               )}
+              <span className="absolute bottom-8 right-3 text-xs text-gray-400">🔍 Tap to zoom</span>
             </div>
             {images.length > 1 && (
               <div className="flex gap-2 overflow-x-auto pb-1">
@@ -93,6 +124,42 @@ export default function ProductDetail() {
               </div>
             )}
           </div>
+
+          {/* Lightbox */}
+          {lightboxOpen && (
+            <div
+              className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center"
+              onClick={() => setLightboxOpen(false)}
+            >
+              <button className="absolute top-4 right-4 text-white text-3xl font-bold z-10" onClick={() => setLightboxOpen(false)}>✕</button>
+              <div
+                className="relative w-full h-full flex items-center justify-center"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+                onClick={e => e.stopPropagation()}
+              >
+                <img
+                  src={images[activeImage]}
+                  alt="Product"
+                  className="max-w-full max-h-[90vh] object-contain"
+                  style={{ touchAction: 'pinch-zoom' }}
+                />
+                {images.length > 1 && (
+                  <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
+                    {images.map((_, i) => (
+                      <div
+                        key={i}
+                        onClick={() => setActiveImage(i)}
+                        className={`w-2.5 h-2.5 rounded-full cursor-pointer transition ${
+                          activeImage === i ? 'bg-orange-500' : 'bg-white/50'
+                        }`}
+                      />
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
           
           <div>
             <h1 className="text-3xl font-bold text-gray-800 mb-2">{product.title}</h1>
@@ -116,7 +183,13 @@ export default function ProductDetail() {
             </div>
 
             <div className="mb-6">
-              <p className="text-2xl font-bold text-orange-600">₹{selectedVariant.price}</p>
+              <div className="flex items-center gap-3">
+                <p className="text-2xl font-bold text-orange-600">₹{selectedVariant.price}</p>
+                <p className="text-lg text-gray-400 line-through">₹{selectedVariant.mrp}</p>
+                <span className="bg-green-100 text-green-700 text-sm font-semibold px-2 py-0.5 rounded-full">
+                  {Math.round((1 - selectedVariant.price / selectedVariant.mrp) * 100)}% off
+                </span>
+              </div>
             </div>
 
             <div className="mb-6">

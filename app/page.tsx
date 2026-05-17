@@ -83,57 +83,57 @@ export default function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-6xl mx-auto">
           <ProductCard 
             title="Malvani Bhajka Masala" 
-            price="₹266"
-            originalPrice="₹345"
+            price="₹248"
+            originalPrice="₹324"
             discount="23%"
             image="/images/products/malvani-bhajka-masala/malvani bhaj1.jpeg"
             description="Authentic Malvani blend with sun-dried spices for traditional coastal curries."
           />
           <ProductCard 
             title="Malvani Macchi Masala" 
-            price="₹227"
-            originalPrice="₹302"
-            discount="25%"
+            price="₹212"
+            originalPrice="₹285"
+            discount="26%"
             image="/images/products/malvani-macchi-masala/malvani fish1.jpeg"
             description="Coastal spice mix with organic kokum for authentic Konkani fish preparations."
           />
           <ProductCard 
             title="Special Malvani Chicken Masala" 
-            price="₹319"
-            originalPrice="₹399"
-            discount="20%"
+            price="₹290"
+            originalPrice="₹372"
+            discount="22%"
             image="/images/products/malvani-chicken-masala/malvani chick1.jpeg"
             description="Hand-ground spices with Byadgi chillies for rich, aromatic chicken dishes."
           />
           <ProductCard 
             title="Pavbhaji Masala" 
-            price="₹274"
-            originalPrice="₹356"
-            discount="23%"
+            price="₹255"
+            originalPrice="₹322"
+            discount="21%"
             image="/images/products/pavbhaji-masala/pavbhaji1.jpeg"
             description="Mumbai street-style blend with roasted cumin for authentic pav bhaji flavor."
           />
           <ProductCard 
             title="Kulith Pith" 
-            price="₹127"
-            originalPrice="₹159"
-            discount="20%"
+            price="₹144"
+            originalPrice="₹195"
+            discount="26%"
             image="/images/products/kulith-pith/kulid1.jpeg"
             description="Stone-ground horse gram flour, protein-rich and naturally gluten-free."
           />
           <ProductCard 
             title="Vade Pith" 
-            price="₹154"
-            originalPrice="₹220"
-            discount="30%"
+            price="₹110"
+            originalPrice="₹152"
+            discount="28%"
             image="/images/products/vade-pith/vade1.jpeg"
             description="Pure urad dal flour for soft, fluffy vadas - traditionally stone-milled."
           />
           <ProductCard 
             title="Kohala Sandage" 
-            price="₹396"
-            originalPrice="₹495"
-            discount="20%"
+            price="₹160"
+            originalPrice="₹214"
+            discount="25%"
             image="/images/products/kohala-sandage/kohala1.jpeg"
             description="Handmade sun-dried lentil wafers, preservative-free traditional Konkani snack."
            />
